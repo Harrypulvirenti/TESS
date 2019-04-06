@@ -11,7 +11,7 @@ class ObjectParserImplTest {
     @Test
     fun testSuccessJsonParsing() {
         val json =
-            "{\"cmd\":\"heartbeat\",\"model\":\"gateway\",\"sid\":\"f0b4299a4a0e\",\"short_id\":\"0\",\"token\":\"zJCU5kiu5UdPbxpN\",\"data\":{\"ip\":\"192.168.1.105\"}}"
+            "{\"cmd\":\"heartbeat\",\"model\":\"gateway\",\"sid\":\"f0b4299a4a0e\",\"short_id\":\"0\",\"token\":\"zJCU5kiu5UdPbxpN\",\"data\":\"{\\\"ip\\\":\\\"192.168.1.105\\\"}\"}"
         val result = sut.parseJson(json, AqaraNetMessage::class)
         result.fold(
             { _ ->

@@ -45,7 +45,7 @@ class AqaraMessageReceiverImpl(
         objectParser.parseJson(json, R::class)
             .fold(
                 {
-                    SmartLogger.e(it, it.message.orEmpty())
+                    SmartLogger.e(it.message.orEmpty(), it)
                 },
                 {
                     onSuccess(it)

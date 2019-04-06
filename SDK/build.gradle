@@ -30,7 +30,7 @@ dependencies {
     testImplementation libraries.junit
 
     implementation libraries.logger
-    api libraries.arrowCore
+    api libraries.arrowCoreData
 
 //    Firebase
     implementation libraries.firebaseCore

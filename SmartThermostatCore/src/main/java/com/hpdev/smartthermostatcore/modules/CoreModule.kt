@@ -5,8 +5,8 @@ import com.hpdev.smartthermostatcore.database.SettingsRepositoryImpl
 import com.hpdev.smartthermostatcore.service.SettingsService
 import com.hpdev.smartthermostatcore.service.SettingsServiceImpl
 import com.hpdev.smartthermostatcore.viewmodel.TestViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 val coreModule = module {
 

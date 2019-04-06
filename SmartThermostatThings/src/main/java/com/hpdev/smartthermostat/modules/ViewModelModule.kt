@@ -1,10 +1,10 @@
 package com.hpdev.smartthermostat.modules
 
 import com.hpdev.smartthermostat.viewmodel.TemperatureSensorViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { TemperatureSensorViewModel(get(), get()) }
+    viewModel { TemperatureSensorViewModel(get(), get(), get()) }
 }

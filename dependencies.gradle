@@ -1,27 +1,28 @@
 ext.versions = [
-        viewModel                : '2.1.0-alpha02',
-        constraintLayout         : '2.0.0-alpha3',
-        appCompat                : '1.1.0-alpha02',
-        room                     : '2.1.0-alpha04',
+        viewModel                : '2.1.0-alpha04',
+        constraintLayout         : '2.0.0-alpha4',
+        appCompat                : '1.1.0-alpha04',
+        room                     : '2.1.0-alpha06',
+        roomCoroutine            : '2.1.0-alpha04',
         things                   : '1.0',
-        espresso                 : '3.1.2-alpha01',
-        runner                   : '1.1.2-alpha01',
-        junit                    : '1.1.1-alpha01',
-        firebaseCore             : '16.0.7',
-        firebaseCommon           : '16.0.4',
-        firebaseFirestone        : '18.0.1',
+        espresso                 : '3.2.0-alpha03',
+        runner                   : '1.2.0-alpha03',
+        junit                    : '1.1.1-alpha03',
+        firebaseCore             : '16.0.8',
+        firebaseCommon           : '16.1.0',
+        firebaseFirestone        : '18.2.0',
         jackson                  : '2.9.8',
-        coroutines               : '1.1.1',
+        coroutines               : '1.2.0-alpha-2',
         crashlytics              : '2.9.9',
         logger                   : '2.2.0',
-        arrow                    : '0.8.2',
-        koin                     : '1.0.2'
+        arrow                    : '0.9.0',
+        koin                     : '2.0.0-rc-2'
 ]
 
 ext.libraries = [
 
 //        Tests
-        junit                   : "androidx.test.ext:junit:$versions.junit",
+        junit                   : "androidx.test.ext:junit-ktx:$versions.junit",
         espresso                : "androidx.test.espresso:espresso-core:$versions.espresso",
         runner                  : "androidx.test:runner:$versions.runner",
 
@@ -31,13 +32,13 @@ ext.libraries = [
         things                  : "com.google.android.things:androidthings:$versions.things",
 
 //        ViewModel
-        viewModel               : "androidx.lifecycle:lifecycle-viewmodel:$versions.viewModel",
+        viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel",
         viewModelCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.viewModel",
 
 //        Room
         room                    : "androidx.room:room-runtime:$versions.room",
         roomCompiler            : "androidx.room:room-compiler:$versions.room",
-        roomCoroutine           : "androidx.room:room-coroutines:$versions.room",
+        roomCoroutine           : "androidx.room:room-coroutines:$versions.roomCoroutine",
 
 
 //         Firebase
@@ -60,7 +61,7 @@ ext.libraries = [
         crashlytics              : "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics",
 
 //         Arrow
-        arrowCore                : "io.arrow-kt:arrow-core:$versions.arrow",
+        arrowCoreData                : "io.arrow-kt:arrow-core-data:$versions.arrow",
 
 //         Koin
         koinAndroid              : "org.koin:koin-android:$versions.koin",

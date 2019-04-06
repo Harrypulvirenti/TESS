@@ -20,6 +20,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "data"
+    productFlavors {
+        mockData {
+            dimension "data"
+        }
+        networkData {
+            dimension "data"
+        }
+    }
+
+    // Todo remove when coroutines issue is fixed
+    packagingOptions {
+        pickFirst("META-INF/atomicfu.kotlin_module")
+    }
 }
 repositories {
     maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
@@ -28,7 +43,7 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation project(":SmartThermostatCore")
 

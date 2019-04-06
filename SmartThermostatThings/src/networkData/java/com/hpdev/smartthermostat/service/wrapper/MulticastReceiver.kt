@@ -37,7 +37,7 @@ abstract class MulticastReceiver(
     }
 
     override fun stopReceiver() {
-        job.cancel()
         socket.leaveGroup(groupAddress)
+        job.cancel()
     }
 }

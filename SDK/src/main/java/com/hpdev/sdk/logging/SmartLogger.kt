@@ -20,15 +20,8 @@ class SmartLogger {
 
         fun d(obj: Any?) = Logger.d(obj)
 
-        fun e(errorMessage: String, vararg args: Any?) {
-            Crashlytics.log(errorMessage)
-            Logger.e(errorMessage, args)
-        }
-
-        fun e(throwable: Throwable?, errorMessage: String, vararg args: Any?) {
-            throwable?.let {
-                Crashlytics.logException(it)
-            }
+        fun e(errorMessage: String, vararg args: Any?, throwable: Throwable? = null) {
+            throwable?.let(Crashlytics::logException)
             Crashlytics.log(errorMessage)
             Logger.e(throwable, errorMessage, args)
         }
