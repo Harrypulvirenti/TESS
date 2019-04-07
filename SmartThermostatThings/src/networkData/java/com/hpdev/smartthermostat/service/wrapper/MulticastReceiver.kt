@@ -1,6 +1,6 @@
 package com.hpdev.smartthermostat.service.wrapper
 
-import com.hpdev.sdk.extensions.trimToString
+import com.hpdev.architecture.sdk.extensions.trimToString
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
@@ -24,7 +24,7 @@ abstract class MulticastReceiver(
 
     override val job = Job()
 
-    override fun startReceiver() {
+    init {
         launch(IO) {
             socket.joinGroup(groupAddress)
             while (isActive) {
@@ -34,10 +34,5 @@ abstract class MulticastReceiver(
                 }
             }
         }
-    }
-
-    override fun stopReceiver() {
-        socket.leaveGroup(groupAddress)
-        job.cancel()
     }
 }

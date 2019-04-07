@@ -3,25 +3,49 @@ package com.hpdev.smartthermostat.modules
 import com.hpdev.smartthermostat.interfaces.DataProvider
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.interfaces.DataUpdater
-import com.hpdev.smartthermostat.models.AqaraMessage
 import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.ReceiveChannel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-private val temperatureProvider = object : DataProvider<AqaraMessage> {
+typealias Temperature = String
+typealias IP = String
 
-    override val dataChannel: BroadcastChannel<AqaraMessage> = BroadcastChannel(2)
+const val TEMPERATURE_UPDATER = "temperature-updater"
+const val TEMPERATURE_SUBSCRIBER = "temperature-subscriber"
+const val IP_UPDATER = "ip-updater"
+const val IP_SUBSCRIBER = "ip-subscriber"
 
-    override fun subscribeDataUpdate(): ReceiveChannel<AqaraMessage> = dataChannel.openSubscription()
+private val temperatureProvider = object : DataProvider<Temperature> {
 
-    override suspend fun notifyDataUpdate(data: AqaraMessage) {
+    override val dataChannel: BroadcastChannel<Temperature> = BroadcastChannel(2)
+
+    override fun subscribeDataUpdate(): ReceiveChannel<Temperature> = dataChannel.openSubscription()
+
+    override suspend fun notifyDataUpdate(data: Temperature) {
+        dataChannel.send(data)
+    }
+}
+
+private val ipProvider = object : DataProvider<IP> {
+
+    override val dataChannel: ConflatedBroadcastChannel<IP> = ConflatedBroadcastChannel()
+
+    override fun subscribeDataUpdate(): ReceiveChannel<IP> = dataChannel.openSubscription()
+
+    override suspend fun notifyDataUpdate(data: IP) {
         dataChannel.send(data)
     }
 }
 
 val providersModule = module {
 
-    single<DataUpdater<AqaraMessage>> { temperatureProvider }
+    single<DataUpdater<Temperature>>(named(TEMPERATURE_UPDATER)) { temperatureProvider }
 
-    single<DataSubscriber<AqaraMessage>> { temperatureProvider }
+    single<DataSubscriber<Temperature>>(named(TEMPERATURE_SUBSCRIBER)) { temperatureProvider }
+
+    single<DataUpdater<IP>>(named(IP_UPDATER)) { ipProvider }
+
+    single<DataSubscriber<IP>>(named(IP_SUBSCRIBER)) { ipProvider }
 }

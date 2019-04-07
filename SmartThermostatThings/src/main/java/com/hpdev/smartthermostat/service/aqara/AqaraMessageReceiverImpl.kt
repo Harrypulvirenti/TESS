@@ -51,9 +51,4 @@ class AqaraMessageReceiverImpl(
                     onSuccess(it)
                 })
     }
-
-    override fun stopReceiver() {
-        super.stopReceiver()
-        messageChannel.close()
-    }
 }

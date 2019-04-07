@@ -7,7 +7,7 @@ import com.orhanobut.logger.Logger
 class SmartLogger {
 
     companion object {
-        fun init(debug: Boolean) {
+        internal fun init(debug: Boolean) {
 
             if (debug) {
                 Logger.addLogAdapter(AndroidLogAdapter())

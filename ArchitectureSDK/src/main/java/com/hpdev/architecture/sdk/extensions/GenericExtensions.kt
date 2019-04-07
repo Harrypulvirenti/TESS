@@ -8,3 +8,5 @@ inline fun <T> T.takeIfOrElse(predicate: (T) -> Boolean, orElse: () -> Unit): T?
         null
     }
 }
+
+inline fun <T> T?.or(or: T): T = this ?: or

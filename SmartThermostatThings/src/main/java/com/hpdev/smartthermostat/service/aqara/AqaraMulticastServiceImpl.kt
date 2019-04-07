@@ -1,6 +1,7 @@
 package com.hpdev.smartthermostat.service.aqara
 
 import com.hpdev.architecture.sdk.extensions.isNotNullOrEmpty
+import com.hpdev.architecture.sdk.extensions.or
 import com.hpdev.architecture.sdk.extensions.takeIfOrElse
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.architecture.sdk.utils.timestamp
@@ -8,8 +9,9 @@ import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.database.repository.AqaraMessageRepository
 import com.hpdev.smartthermostat.interfaces.DataUpdater
 import com.hpdev.smartthermostat.models.AqaraMessage
+import com.hpdev.smartthermostat.modules.IP
+import com.hpdev.smartthermostat.modules.Temperature
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
@@ -17,12 +19,11 @@ import kotlinx.coroutines.launch
 private const val REPORT_CMD = "report"
 
 class AqaraMulticastServiceImpl(
-    private val receiver: AqaraMessageReceiver,
+    receiver: AqaraMessageReceiver,
     private val repository: AqaraMessageRepository,
-    private val temperatureUpdater: DataUpdater<AqaraMessage>
+    private val temperatureUpdater: DataUpdater<Temperature>,
+    private val ipUpdater: DataUpdater<IP>
 ) : AqaraMulticastService {
-
-    private val ipUpdateChannel = ConflatedBroadcastChannel<String>()
 
     private val messageReceiverChannel: ReceiveChannel<AqaraNetMessage> = receiver.subscribeMessageReceiver()
 
@@ -30,15 +31,17 @@ class AqaraMulticastServiceImpl(
         { message: AqaraMessage -> message.commandName == REPORT_CMD } to
             { message: AqaraMessage ->
                 launch {
-                    temperatureUpdater.notifyDataUpdate(message)
+                    temperatureUpdater.notifyDataUpdate(message.temperature.or("--"))
                 }
                 Unit
             },
         { message: AqaraMessage -> message.ip.isNotNullOrEmpty() } to
             { message: AqaraMessage ->
                 launch {
-                    if (ipUpdateChannel.valueOrNull != message.ip)
-                        ipUpdateChannel.send(message.ip!!)
+                    if (currentIp != message.ip) {
+                        currentIp = message.ip
+                        ipUpdater.notifyDataUpdate(message.ip.orEmpty())
+                    }
                 }
                 Unit
             }
@@ -46,17 +49,15 @@ class AqaraMulticastServiceImpl(
 
     override val job = Job()
 
-    init {
-        receiver.startReceiver()
+    private var currentIp: String? = null
 
+    init {
         launch {
             messageReceiverChannel.consumeEach {
                 onMessageReceived(it)
             }
         }
     }
-
-    override fun subscribeIpUpdate(): ReceiveChannel<String> = ipUpdateChannel.openSubscription()
 
     private fun onMessageReceived(netMessage: AqaraNetMessage) {
         val message = AqaraMessage(timestamp, netMessage)
@@ -71,9 +72,4 @@ class AqaraMulticastServiceImpl(
 
     private fun storeMessage(message: AqaraMessage) =
         repository.storeMessage(message)
-
-    override fun stopService() {
-        ipUpdateChannel.close()
-        receiver.stopReceiver()
-    }
 }

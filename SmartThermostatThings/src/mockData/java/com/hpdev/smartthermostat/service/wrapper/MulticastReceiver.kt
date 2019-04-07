@@ -16,16 +16,15 @@ abstract class MulticastReceiver(
 
     override val job = Job()
 
-    override fun startReceiver() {
+    init {
+        sendMessage()
+    }
 
+    private fun sendMessage() {
         launch {
             onMessageReceived(json)
             delay(10000)
-            startReceiver()
+            sendMessage()
         }
-    }
-
-    override fun stopReceiver() {
-        job.cancel()
     }
 }

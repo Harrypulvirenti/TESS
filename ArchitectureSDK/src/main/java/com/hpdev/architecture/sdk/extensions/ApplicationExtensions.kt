@@ -3,6 +3,7 @@ package com.hpdev.architecture.sdk.extensions
 import android.app.Application
 import com.hpdev.architecture.sdk.interfaces.ApplicationBundle
 import com.hpdev.architecture.sdk.interfaces.ApplicationInitializer
+import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
 import com.hpdev.architecture.sdk.modules.sdkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -24,7 +25,9 @@ fun Application.initKoin(isDebug: Boolean = false, vararg modules: Module) {
     }
     val bundle = ApplicationBundle(this, isDebug)
 
-    getAllOfType<ApplicationInitializer>()
+    getAllOfType<ApplicationStarter>()
+        .filter { it is ApplicationInitializer }
+        .map { it as ApplicationInitializer }
         .forEach {
             it.init(bundle)
         }
