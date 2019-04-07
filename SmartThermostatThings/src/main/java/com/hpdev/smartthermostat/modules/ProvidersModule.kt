@@ -1,27 +1,27 @@
 package com.hpdev.smartthermostat.modules
 
-import com.hpdev.smartthermostat.dataprovider.TemperatureSubscriber
-import com.hpdev.smartthermostat.dataprovider.TemperatureUpdater
+import com.hpdev.smartthermostat.interfaces.DataProvider
+import com.hpdev.smartthermostat.interfaces.DataSubscriber
+import com.hpdev.smartthermostat.interfaces.DataUpdater
 import com.hpdev.smartthermostat.models.AqaraMessage
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.ReceiveChannel
 import org.koin.dsl.module
 
-private val temperatureProvider = object : TemperatureUpdater, TemperatureSubscriber {
+private val temperatureProvider = object : DataProvider<AqaraMessage> {
 
-    private val temperatureChannel = BroadcastChannel<AqaraMessage>(2)
+    override val dataChannel: BroadcastChannel<AqaraMessage> = BroadcastChannel(2)
 
-    override suspend fun notifyTemperatureUpdate(temperature: AqaraMessage) {
-        temperatureChannel.send(temperature)
+    override fun subscribeDataUpdate(): ReceiveChannel<AqaraMessage> = dataChannel.openSubscription()
+
+    override suspend fun notifyDataUpdate(data: AqaraMessage) {
+        dataChannel.send(data)
     }
-
-    override fun subscribeTemperatureUpdate(): ReceiveChannel<AqaraMessage> =
-        temperatureChannel.openSubscription()
 }
 
 val providersModule = module {
 
-    single<TemperatureSubscriber> { temperatureProvider }
+    single<DataUpdater<AqaraMessage>> { temperatureProvider }
 
-    single<TemperatureUpdater> { temperatureProvider }
+    single<DataSubscriber<AqaraMessage>> { temperatureProvider }
 }

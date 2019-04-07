@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hpdev.architecture.sdk.extensions.launch
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraNetCommand
-import com.hpdev.smartthermostat.dataprovider.TemperatureSubscriber
+import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.models.AqaraMessage
 import com.hpdev.smartthermostat.service.aqara.AqaraMulticastService
 import com.hpdev.smartthermostat.service.wrapper.UDPMessenger
@@ -16,12 +16,11 @@ import kotlinx.coroutines.launch
 class TemperatureSensorViewModel(
     private val multicastService: AqaraMulticastService,
     private val udpMessenger: UDPMessenger,
-    temperatureSubscriber: TemperatureSubscriber
+    temperatureSubscriber: DataSubscriber<AqaraMessage>
 ) : ViewModel() {
 
     private val ipUpdateSubscription: ReceiveChannel<String> = multicastService.subscribeIpUpdate()
-    private val temperatureSubscription: ReceiveChannel<AqaraMessage> =
-        temperatureSubscriber.subscribeTemperatureUpdate()
+    private val temperatureSubscription: ReceiveChannel<AqaraMessage> = temperatureSubscriber.subscribeDataUpdate()
 
     init {
 

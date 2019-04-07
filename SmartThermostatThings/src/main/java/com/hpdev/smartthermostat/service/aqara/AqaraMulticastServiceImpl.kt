@@ -6,7 +6,7 @@ import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.architecture.sdk.utils.timestamp
 import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.database.repository.AqaraMessageRepository
-import com.hpdev.smartthermostat.dataprovider.TemperatureUpdater
+import com.hpdev.smartthermostat.interfaces.DataUpdater
 import com.hpdev.smartthermostat.models.AqaraMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
@@ -19,7 +19,7 @@ private const val REPORT_CMD = "report"
 class AqaraMulticastServiceImpl(
     private val receiver: AqaraMessageReceiver,
     private val repository: AqaraMessageRepository,
-    private val temperatureUpdater: TemperatureUpdater
+    private val temperatureUpdater: DataUpdater<AqaraMessage>
 ) : AqaraMulticastService {
 
     private val ipUpdateChannel = ConflatedBroadcastChannel<String>()
@@ -30,7 +30,7 @@ class AqaraMulticastServiceImpl(
         { message: AqaraMessage -> message.commandName == REPORT_CMD } to
             { message: AqaraMessage ->
                 launch {
-                    temperatureUpdater.notifyTemperatureUpdate(message)
+                    temperatureUpdater.notifyDataUpdate(message)
                 }
                 Unit
             },
