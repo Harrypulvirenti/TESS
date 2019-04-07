@@ -1,1 +1,1 @@
-include ':SmartThermostatMobile', ':SmartThermostatThings', ':SDK', ':SmartThermostatCore', ':NetModels'
+include ':SmartThermostatMobile', ':SmartThermostatThings', ':ArchitectureSDK', ':SmartThermostatCore', ':NetModels'

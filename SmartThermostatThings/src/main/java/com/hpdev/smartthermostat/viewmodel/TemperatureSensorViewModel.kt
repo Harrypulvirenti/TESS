@@ -2,19 +2,16 @@ package com.hpdev.smartthermostat.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hpdev.architecture.sdk.extensions.launch
+import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraNetCommand
-import com.hpdev.sdk.logging.SmartLogger
 import com.hpdev.smartthermostat.dataprovider.TemperatureSubscriber
 import com.hpdev.smartthermostat.models.AqaraMessage
 import com.hpdev.smartthermostat.service.aqara.AqaraMulticastService
 import com.hpdev.smartthermostat.service.wrapper.UDPMessenger
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 class TemperatureSensorViewModel(
     private val multicastService: AqaraMulticastService,
@@ -47,9 +44,3 @@ class TemperatureSensorViewModel(
         multicastService.stopService()
     }
 }
-
-private fun ViewModel.launch(
-    context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.DEFAULT,
-    block: suspend CoroutineScope.() -> Unit
-) = viewModelScope.launch(context, start, block)

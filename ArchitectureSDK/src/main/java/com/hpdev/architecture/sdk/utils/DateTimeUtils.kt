@@ -1,4 +1,4 @@
-package com.hpdev.sdk.datetime
+package com.hpdev.architecture.sdk.utils
 
 import java.util.Calendar
 

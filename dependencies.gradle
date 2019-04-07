@@ -1,5 +1,4 @@
 ext.versions = [
-        viewModel                : '2.1.0-alpha04',
         constraintLayout         : '2.0.0-alpha4',
         appCompat                : '1.1.0-alpha04',
         room                     : '2.1.0-alpha06',
@@ -8,14 +7,8 @@ ext.versions = [
         espresso                 : '3.2.0-alpha03',
         runner                   : '1.2.0-alpha03',
         junit                    : '1.1.1-alpha03',
-        firebaseCore             : '16.0.8',
-        firebaseCommon           : '16.1.0',
         firebaseFirestone        : '18.2.0',
         jackson                  : '2.9.8',
-        coroutines               : '1.2.0-alpha-2',
-        crashlytics              : '2.9.9',
-        logger                   : '2.2.0',
-        arrow                    : '0.9.0',
         koin                     : '2.0.0-rc-2'
 ]
 
@@ -31,10 +24,6 @@ ext.libraries = [
         appCompat               : "androidx.appcompat:appcompat:$versions.appCompat",
         things                  : "com.google.android.things:androidthings:$versions.things",
 
-//        ViewModel
-        viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel",
-        viewModelCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.viewModel",
-
 //        Room
         room                    : "androidx.room:room-runtime:$versions.room",
         roomCompiler            : "androidx.room:room-compiler:$versions.room",
@@ -42,29 +31,12 @@ ext.libraries = [
 
 
 //         Firebase
-        firebaseCore            : "com.google.firebase:firebase-core:$versions.firebaseCore",
-        firebaseCommon          : "com.google.firebase:firebase-common:$versions.firebaseCommon",
         firebaseFirestone       : "com.google.firebase:firebase-firestore:$versions.firebaseFirestone",
-
-//         Logging
-        logger                  : "com.orhanobut:logger:$versions.logger",
 
 //         Jackson
         jackson                  : "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
         jacksonAnnotation        : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
 
-//         Coroutines
-        coroutineCore            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
-        coroutineAndroid         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
-
-//         Crash reporting
-        crashlytics              : "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics",
-
-//         Arrow
-        arrowCoreData                : "io.arrow-kt:arrow-core-data:$versions.arrow",
-
 //         Koin
-        koinAndroid              : "org.koin:koin-android:$versions.koin",
-        koinViewmodel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
         koinTesting              : "org.koin:koin-test:$versions.koin"
 ]

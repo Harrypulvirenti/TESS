@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Todo remove when coroutines issue is fixed
+    packagingOptions {
+        pickFirst("META-INF/atomicfu.kotlin_module")
+    }
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.hpdev.sdk.extensions
+package com.hpdev.architecture.sdk.extensions
 
 fun String?.isNotNullOrEmpty() = !this.isNullOrEmpty()
 

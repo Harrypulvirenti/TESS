@@ -1,7 +1,7 @@
 package com.hpdev.smartthermostat.service.wrapper
 
-import com.hpdev.sdk.extensions.trimToString
-import com.hpdev.sdk.logging.SmartLogger
+import com.hpdev.architecture.sdk.extensions.trimToString
+import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job

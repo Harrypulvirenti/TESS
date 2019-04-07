@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+//    todo remove after koin support intoSet
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    testImplementation libraries.junit
+
+//    Logger
+    implementation "com.orhanobut:logger:2.2.0"
+
+    def arrow_version = "0.9.0"
+//    Arrow
+    api "io.arrow-kt:arrow-core-data:$arrow_version"
+
+    def viewModel_version = "2.1.0-alpha04"
+//    ViewModel
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$viewModel_version"
+
+
+    def coroutine_version = "1.2.0-alpha-2"
+//    Coroutine
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+
+    def koin_version = "2.0.0-rc-2"
+//    Koin
+    api "org.koin:koin-android:$koin_version"
+    api "org.koin:koin-androidx-viewmodel:$koin_version"
+
+//    Firebase
+    api "com.google.firebase:firebase-core:16.0.8"
+    api "com.google.firebase:firebase-common:16.1.0"
+
+    //    Crashlytics
+    api "com.crashlytics.sdk.android:crashlytics:2.9.9"
+}
+repositories {
+    mavenCentral()
+}

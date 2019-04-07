@@ -29,28 +29,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    api project(':SDK')
+    api project(':ArchitectureSDK')
     api project(':NetModels')
 
 //    Test
     testImplementation libraries.junit
 
-//    ViewModel
-    api libraries.viewModel
-    kapt libraries.viewModelCompiler
-
-//    Coroutine
-    api libraries.coroutineCore
-    api libraries.coroutineAndroid
-
-//    Koin
-    api libraries.koinAndroid
-    api libraries.koinViewmodel
-    testImplementation libraries.koinTesting
-
-//    Firebase
-    api libraries.firebaseCore
-    implementation libraries.firebaseCommon
     implementation libraries.firebaseFirestone
 
 //    Jackson

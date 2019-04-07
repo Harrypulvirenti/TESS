@@ -1,8 +1,8 @@
 package com.hpdev.smartthermostat.service.aqara
 
+import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraMessageData
 import com.hpdev.netmodels.aqara.AqaraNetMessage
-import com.hpdev.sdk.logging.SmartLogger
 import com.hpdev.smartthermostat.service.wrapper.MulticastReceiver
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import kotlinx.coroutines.channels.BroadcastChannel

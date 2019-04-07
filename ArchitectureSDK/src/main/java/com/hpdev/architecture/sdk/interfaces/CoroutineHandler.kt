@@ -1,4 +1,4 @@
-package com.hpdev.smartthermostatcore.coroutine
+package com.hpdev.architecture.sdk.interfaces
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

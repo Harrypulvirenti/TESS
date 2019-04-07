@@ -1,4 +1,4 @@
-package com.hpdev.sdk.logging
+package com.hpdev.architecture.sdk.utils
 
 import com.crashlytics.android.Crashlytics
 import com.orhanobut.logger.AndroidLogAdapter

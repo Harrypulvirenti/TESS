@@ -1,7 +1,7 @@
 package com.hpdev.smartthermostat.database.repository
 
+import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.models.AqaraMessage
-import com.hpdev.smartthermostatcore.coroutine.CoroutineHandler
 
 interface AqaraMessageRepository : CoroutineHandler {
 
