@@ -1,6 +1,7 @@
 package com.hpdev.smartthermostat.service.wrapper
 
 import com.hpdev.architecture.sdk.extensions.trimToString
+import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import kotlinx.coroutines.Dispatchers.IO
@@ -11,7 +12,7 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 
-class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
+class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger, CoroutineHandler {
 
     override val job = Job()
     private val socket = DatagramSocket()

@@ -1,9 +1,8 @@
 package com.hpdev.smartthermostat.database.repository
 
-import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.models.AqaraMessage
 
-interface AqaraMessageRepository : CoroutineHandler {
+interface AqaraMessageRepository {
 
     fun storeMessage(message: AqaraMessage)
 

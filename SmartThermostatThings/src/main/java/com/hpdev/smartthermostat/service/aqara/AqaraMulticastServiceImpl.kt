@@ -3,6 +3,8 @@ package com.hpdev.smartthermostat.service.aqara
 import com.hpdev.architecture.sdk.extensions.isNotNullOrEmpty
 import com.hpdev.architecture.sdk.extensions.or
 import com.hpdev.architecture.sdk.extensions.takeIfOrElse
+import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
+import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.architecture.sdk.utils.timestamp
 import com.hpdev.netmodels.aqara.AqaraNetMessage
@@ -23,7 +25,7 @@ class AqaraMulticastServiceImpl(
     private val repository: AqaraMessageRepository,
     private val temperatureUpdater: DataUpdater<Temperature>,
     private val ipUpdater: DataUpdater<IP>
-) : AqaraMulticastService {
+) : AqaraMulticastService, CoroutineHandler, ApplicationStarter {
 
     private val messageReceiverChannel: ReceiveChannel<AqaraNetMessage> = receiver.subscribeMessageReceiver()
 

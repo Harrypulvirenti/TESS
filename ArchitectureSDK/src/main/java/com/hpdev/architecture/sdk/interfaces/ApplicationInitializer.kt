@@ -2,7 +2,7 @@ package com.hpdev.architecture.sdk.interfaces
 
 import android.content.Context
 
-interface ApplicationInitializer : ApplicationStarter {
+interface ApplicationInitializer {
 
     fun init(bundle: ApplicationBundle)
 }

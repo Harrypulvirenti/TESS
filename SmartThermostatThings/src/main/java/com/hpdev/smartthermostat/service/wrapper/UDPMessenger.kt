@@ -1,8 +1,6 @@
 package com.hpdev.smartthermostat.service.wrapper
 
-import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
-
-interface UDPMessenger : CoroutineHandler {
+interface UDPMessenger {
 
     fun setDestinationIP(ip: String)
 

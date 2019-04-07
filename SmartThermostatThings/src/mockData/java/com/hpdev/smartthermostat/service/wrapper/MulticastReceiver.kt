@@ -1,5 +1,6 @@
 package com.hpdev.smartthermostat.service.wrapper
 
+import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -9,7 +10,7 @@ abstract class MulticastReceiver(
     port: Int,
     receivePort: Int = port,
     bufferSize: Int
-) : NetworkReceiver {
+) : NetworkReceiver, CoroutineHandler {
 
     private var json =
         "{\"cmd\":\"heartbeat\",\"model\":\"gateway\",\"sid\":\"f0b4299a4a0e\",\"short_id\":\"0\",\"token\":\"zJCU5kiu5UdPbxpN\",\"data\":\"{\\\"ip\\\":\\\"192.168.1.105\\\"}\"}"

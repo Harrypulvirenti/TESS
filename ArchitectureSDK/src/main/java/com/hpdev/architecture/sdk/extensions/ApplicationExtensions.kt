@@ -25,10 +25,10 @@ fun Application.initKoin(isDebug: Boolean = false, vararg modules: Module) {
     }
     val bundle = ApplicationBundle(this, isDebug)
 
-    getAllOfType<ApplicationStarter>()
-        .filter { it is ApplicationInitializer }
-        .map { it as ApplicationInitializer }
+    getAllOfType<ApplicationInitializer>()
         .forEach {
             it.init(bundle)
         }
+
+    getAllOfType<ApplicationStarter>()
 }

@@ -1,12 +1,13 @@
 package com.hpdev.smartthermostat.database.repository
 
+import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.database.dao.AqaraMessageDAO
 import com.hpdev.smartthermostat.models.AqaraMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class AqaraMessageRepositoryImpl(private val dao: AqaraMessageDAO) : AqaraMessageRepository {
+class AqaraMessageRepositoryImpl(private val dao: AqaraMessageDAO) : AqaraMessageRepository, CoroutineHandler {
 
     override val job = Job()
 
