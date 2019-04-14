@@ -6,13 +6,21 @@ import com.hpdev.smartthermostat.service.aqara.AqaraMulticastService
 import com.hpdev.smartthermostat.service.aqara.AqaraMulticastServiceImpl
 import com.hpdev.smartthermostat.service.wrapper.UDPMessenger
 import com.hpdev.smartthermostat.service.wrapper.UDPMessengerImpl
+//import com.hpdev.smartthermostat.service.wrapper.UDPMessengerImpl
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val aqaraModule = module {
-    single { AqaraMessageReceiverImpl(get()) as AqaraMessageReceiver }
+    single<AqaraMessageReceiver> { AqaraMessageReceiverImpl(get()) }
 
-    single { AqaraMulticastServiceImpl(get(), get(), get(named(TEMPERATURE_UPDATER)), get(named(IP_UPDATER))) as AqaraMulticastService }
+    single<AqaraMulticastService> {
+        AqaraMulticastServiceImpl(
+            get(),
+            get(),
+            get(named(TEMPERATURE_UPDATER)),
+            get(named(IP_UPDATER))
+        )
+    }
 
-    single { UDPMessengerImpl(get()) as UDPMessenger }
+    single<UDPMessenger> { UDPMessengerImpl(get()) }
 }

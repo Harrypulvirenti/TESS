@@ -11,7 +11,7 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        temperatureViewModel = getViewModel()
+        temperatureViewModel = getViewModel()
 
 //        val manager = PeripheralManager.getInstance()
 //        val portList: List<String> = manager.gpioList
