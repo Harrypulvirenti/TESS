@@ -4,7 +4,6 @@ import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.database.dao.AqaraMessageDAO
 import com.hpdev.smartthermostat.models.AqaraMessage
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AqaraMessageRepositoryImpl(private val dao: AqaraMessageDAO) : AqaraMessageRepository, CoroutineHandler {
@@ -19,6 +18,6 @@ class AqaraMessageRepositoryImpl(private val dao: AqaraMessageDAO) : AqaraMessag
 
     override suspend fun getAllMessages(): List<AqaraMessage> {
 
-        return async { dao.getAllMessages() }.await()
+        return dao.getAllMessages()
     }
 }

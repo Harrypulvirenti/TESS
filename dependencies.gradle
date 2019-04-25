@@ -2,11 +2,11 @@ ext.versions = [
         constraintLayout         : '2.0.0-alpha4',
         appCompat                : '1.1.0-alpha04',
         room                     : '2.1.0-alpha06',
-        roomCoroutine            : '2.1.0-alpha04',
         things                   : '1.0',
-        espresso                 : '3.2.0-alpha03',
-        runner                   : '1.2.0-alpha03',
-        junit                    : '1.1.1-alpha03',
+        espresso                 : '3.2.0-alpha04',
+        runner                   : '1.2.0-alpha04',
+        junit                    : '1.1.1-alpha04',
+        mockk                    : '1.9.3.kotlin12',
         firebaseFirestone        : '18.2.0',
         jackson                  : '2.9.8',
         koin                     : '2.0.0-rc-2'
@@ -18,6 +18,7 @@ ext.libraries = [
         junit                   : "androidx.test.ext:junit-ktx:$versions.junit",
         espresso                : "androidx.test.espresso:espresso-core:$versions.espresso",
         runner                  : "androidx.test:runner:$versions.runner",
+        mockk                   : "io.mockk:mockk:$versions.mockk",
 
         //Support libs
         constraintLayout        : "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
@@ -27,7 +28,7 @@ ext.libraries = [
 //        Room
         room                    : "androidx.room:room-runtime:$versions.room",
         roomCompiler            : "androidx.room:room-compiler:$versions.room",
-        roomCoroutine           : "androidx.room:room-coroutines:$versions.roomCoroutine",
+        roomKTX                 : "androidx.room:room-ktx:$versions.room",
 
 
 //         Firebase

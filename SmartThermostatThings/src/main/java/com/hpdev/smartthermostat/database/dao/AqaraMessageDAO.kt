@@ -10,8 +10,8 @@ import com.hpdev.smartthermostat.models.AqaraMessage
 interface AqaraMessageDAO {
 
     @Insert
-    fun insertMessage(data: AqaraMessage)
+    suspend fun insertMessage(data: AqaraMessage)
 
     @Query("SELECT * FROM $AQARA_NETWORK_MESSAGES_TABLE")
-    fun getAllMessages(): List<AqaraMessage>
+    suspend fun getAllMessages(): List<AqaraMessage>
 }

@@ -58,6 +58,6 @@ dependencies {
 //    Room
     implementation libraries.room
     kapt libraries.roomCompiler
-    implementation libraries.roomCoroutine
+    implementation libraries.roomKTX
 }
 apply plugin: 'com.google.gms.google-services'

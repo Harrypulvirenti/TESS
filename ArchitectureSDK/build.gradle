@@ -47,7 +47,7 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$viewModel_version"
 
 
-    def coroutine_version = "1.2.0-alpha-2"
+    def coroutine_version = "1.2.0"
 //    Coroutine
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
