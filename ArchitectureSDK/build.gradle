@@ -47,10 +47,9 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$viewModel_version"
 
 
-    def coroutine_version = "1.2.0"
 //    Coroutine
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
 
     def koin_version = "2.0.0-rc-2"
 //    Koin

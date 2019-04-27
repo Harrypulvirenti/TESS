@@ -3,6 +3,7 @@ package com.hpdev.smartthermostat.database.repository
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.database.dao.AqaraMessageDAO
 import com.hpdev.smartthermostat.models.AqaraMessage
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -11,7 +12,7 @@ class AqaraMessageRepositoryImpl(private val dao: AqaraMessageDAO) : AqaraMessag
     override val job = Job()
 
     override fun storeMessage(message: AqaraMessage) {
-        launch {
+        launch(Default) {
             dao.insertMessage(message)
         }
     }

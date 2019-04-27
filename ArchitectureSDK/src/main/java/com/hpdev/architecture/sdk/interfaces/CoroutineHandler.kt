@@ -10,5 +10,5 @@ interface CoroutineHandler : CoroutineScope {
     val job: Job
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default
+        get() = job + Dispatchers.Main
 }

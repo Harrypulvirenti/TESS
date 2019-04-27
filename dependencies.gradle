@@ -7,9 +7,11 @@ ext.versions = [
         runner                   : '1.2.0-alpha04',
         junit                    : '1.1.1-alpha04',
         mockk                    : '1.9.3.kotlin12',
+        robolectric              : '4.2',
         firebaseFirestone        : '18.2.0',
         jackson                  : '2.9.8',
-        koin                     : '2.0.0-rc-2'
+        koin                     : '2.0.0-rc-2',
+        coroutine                : '1.2.0'
 ]
 
 ext.libraries = [
@@ -19,6 +21,7 @@ ext.libraries = [
         espresso                : "androidx.test.espresso:espresso-core:$versions.espresso",
         runner                  : "androidx.test:runner:$versions.runner",
         mockk                   : "io.mockk:mockk:$versions.mockk",
+        robolectric             : "org.robolectric:robolectric:$versions.robolectric",
 
         //Support libs
         constraintLayout        : "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
@@ -39,5 +42,8 @@ ext.libraries = [
         jacksonAnnotation        : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
 
 //         Koin
-        koinTesting              : "org.koin:koin-test:$versions.koin"
+        koinTesting              : "org.koin:koin-test:$versions.koin",
+
+//        Coroutine
+        coroutineTest            : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine"
 ]
