@@ -23,6 +23,13 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+        baseline file("lint-errors.xml")
+        checkAllWarnings true
+        warningsAsErrors true
+        abortOnError true
+    }
 }
 
 dependencies {
@@ -61,7 +68,7 @@ dependencies {
     api "com.google.firebase:firebase-common:16.1.0"
 
     //    Crashlytics
-    api "com.crashlytics.sdk.android:crashlytics:2.9.9"
+    api "com.crashlytics.sdk.android:crashlytics:2.10.0"
 }
 repositories {
     mavenCentral()

@@ -11,7 +11,7 @@ ext.versions = [
         firebaseFirestone        : '18.2.0',
         jackson                  : '2.9.8',
         koin                     : '2.0.0-rc-2',
-        coroutine                : '1.2.0'
+        coroutine                : '1.2.1'
 ]
 
 ext.libraries = [
@@ -38,12 +38,12 @@ ext.libraries = [
         firebaseFirestone       : "com.google.firebase:firebase-firestore:$versions.firebaseFirestone",
 
 //         Jackson
-        jackson                  : "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
-        jacksonAnnotation        : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
+        jackson                 : "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
+        jacksonAnnotation       : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
 
 //         Koin
-        koinTesting              : "org.koin:koin-test:$versions.koin",
+        koinTesting             : "org.koin:koin-test:$versions.koin",
 
 //        Coroutine
-        coroutineTest            : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine"
+        coroutineTest           : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine"
 ]

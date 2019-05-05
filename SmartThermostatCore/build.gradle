@@ -23,6 +23,16 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+        baseline file("lint-errors.xml")
+        checkAllWarnings true
+        warningsAsErrors true
+        abortOnError true
+    }
+}
+repositories {
+    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
@@ -34,6 +44,7 @@ dependencies {
 
 //    Test
     testImplementation libraries.junit
+    testImplementation libraries.mockk
 
     implementation libraries.firebaseFirestone
 

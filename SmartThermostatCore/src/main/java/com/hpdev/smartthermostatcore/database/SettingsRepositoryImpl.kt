@@ -1,15 +1,19 @@
 package com.hpdev.smartthermostatcore.database
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.hpdev.smartthermostatcore.extensions.consume
 import com.hpdev.smartthermostatcore.models.Setting
+import com.hpdev.smartthermostatcore.network.ObjectParser
+import com.hpdev.smartthermostatcore.network.parseJson
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 
 private const val COLLECTION_NAME = "Settings"
 
-class SettingsRepositoryImpl : SettingsRepository {
+class SettingsRepositoryImpl(
+    private val objectParser: ObjectParser
+) : SettingsRepository {
 
     private val collection: CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_NAME)
 
@@ -21,14 +25,15 @@ class SettingsRepositoryImpl : SettingsRepository {
     }
 
     override fun getDocument(name: String): Deferred<Setting> {
-
-        val mapper = ObjectMapper()
         val deferred = CompletableDeferred<Setting>()
 
         collection.document(name).get()
             .addOnSuccessListener {
-                val obj = mapper.convertValue(it.data, Setting::class.java)
-                deferred.complete(obj)
+                it.data?.let { data ->
+                    objectParser.parseJson<Setting>(data.toMap()).consume { obj ->
+                        deferred.complete(obj)
+                    }
+                } ?: deferred.cancel()
             }
             .addOnCanceledListener {
                 deferred.cancel()

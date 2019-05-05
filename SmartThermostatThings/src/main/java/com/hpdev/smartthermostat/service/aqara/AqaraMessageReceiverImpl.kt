@@ -1,11 +1,12 @@
 package com.hpdev.smartthermostat.service.aqara
 
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
-import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraMessageData
 import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.service.wrapper.MulticastReceiver
+import com.hpdev.smartthermostatcore.extensions.consume
 import com.hpdev.smartthermostatcore.network.ObjectParser
+import com.hpdev.smartthermostatcore.network.parseJson
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -37,30 +38,25 @@ class AqaraMessageReceiverImpl(
         }
     }
 
+    override fun subscribeMessageReceiver() = messageChannel.openSubscription()
+
     override suspend fun onNetworkMessageReceived(data: String) {
         withContext(Default) {
-            parseJsonAndFold(data) { message: AqaraNetMessage ->
+
+            objectParser.parseJson<AqaraNetMessage>(data).consume { message: AqaraNetMessage ->
                 message.dataJson?.let {
-                    parseJsonAndFold(it) { messageData: AqaraMessageData ->
+                    objectParser.parseJson<AqaraMessageData>(it).consume { messageData: AqaraMessageData ->
                         message.data = messageData
                     }
                 }
-
-                messageChannel.send(message)
+                sendParsedMessage(message)
             }
         }
     }
 
-    override fun subscribeMessageReceiver() = messageChannel.openSubscription()
-
-    private inline fun <reified R : Any> parseJsonAndFold(json: String, onSuccess: (R) -> Unit) {
-        objectParser.parseJson(json, R::class)
-            .fold(
-                {
-                    SmartLogger.e(it.message.orEmpty(), it)
-                },
-                {
-                    onSuccess(it)
-                })
+    private fun sendParsedMessage(message: AqaraNetMessage) {
+        launch(Default) {
+            messageChannel.send(message)
+        }
     }
 }

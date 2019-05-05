@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val coreModule = module {
 
-    single<SettingsRepository> { SettingsRepositoryImpl() }
+    single<SettingsRepository> { SettingsRepositoryImpl(get()) }
 
     single<SettingsService> { SettingsServiceImpl(get()) }
 

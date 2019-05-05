@@ -3,6 +3,7 @@ package com.hpdev.architecture.sdk.utils
 import com.crashlytics.android.Crashlytics
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import io.fabric.sdk.android.Fabric
 
 class SmartLogger {
 
@@ -21,8 +22,10 @@ class SmartLogger {
         fun d(obj: Any?) = Logger.d(obj)
 
         fun e(errorMessage: String, vararg args: Any?, throwable: Throwable? = null) {
-            throwable?.let(Crashlytics::logException)
-            Crashlytics.log(errorMessage)
+            if (Fabric.isInitialized()) {
+                throwable?.let(Crashlytics::logException)
+                Crashlytics.log(errorMessage)
+            }
             Logger.e(throwable, errorMessage, args)
         }
 
