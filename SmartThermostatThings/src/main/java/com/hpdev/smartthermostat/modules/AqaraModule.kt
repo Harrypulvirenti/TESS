@@ -1,13 +1,13 @@
 package com.hpdev.smartthermostat.modules
 
-import com.hpdev.smartthermostat.service.aqara.AqaraMessageReceiver
-import com.hpdev.smartthermostat.service.aqara.AqaraMessageReceiverImpl
-import com.hpdev.smartthermostat.service.aqara.AqaraMulticastService
-import com.hpdev.smartthermostat.service.aqara.AqaraMulticastServiceImpl
-import com.hpdev.smartthermostat.service.wrapper.MulticastReceiver
-import com.hpdev.smartthermostat.service.wrapper.MulticastReceiverImpl
-import com.hpdev.smartthermostat.service.wrapper.UDPMessenger
-import com.hpdev.smartthermostat.service.wrapper.UDPMessengerImpl
+import com.hpdev.smartthermostat.network.MulticastReceiver
+import com.hpdev.smartthermostat.network.MulticastReceiverImpl
+import com.hpdev.smartthermostat.network.UDPMessenger
+import com.hpdev.smartthermostat.network.UDPMessengerImpl
+import com.hpdev.smartthermostat.service.AqaraMessageReceiver
+import com.hpdev.smartthermostat.service.AqaraMessageReceiverImpl
+import com.hpdev.smartthermostat.service.AqaraMulticastService
+import com.hpdev.smartthermostat.service.AqaraMulticastServiceImpl
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -15,7 +15,12 @@ val aqaraModule = module {
 
     single<MulticastReceiver> { MulticastReceiverImpl() }
 
-    single<AqaraMessageReceiver> { AqaraMessageReceiverImpl(get(), get()) }
+    single<AqaraMessageReceiver> {
+        AqaraMessageReceiverImpl(
+            get(),
+            get()
+        )
+    }
 
     single<AqaraMulticastService> {
         AqaraMulticastServiceImpl(

@@ -1,9 +1,9 @@
-package com.hpdev.smartthermostat.service.aqara
+package com.hpdev.smartthermostat.service
 
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.netmodels.aqara.AqaraMessageData
 import com.hpdev.netmodels.aqara.AqaraNetMessage
-import com.hpdev.smartthermostat.service.wrapper.MulticastReceiver
+import com.hpdev.smartthermostat.network.MulticastReceiver
 import com.hpdev.smartthermostatcore.extensions.consume
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import com.hpdev.smartthermostatcore.network.parseJson

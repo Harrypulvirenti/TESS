@@ -1,4 +1,4 @@
-package com.hpdev.smartthermostat.service.wrapper
+package com.hpdev.smartthermostat.network
 
 import com.hpdev.architecture.sdk.extensions.trimToString
 import kotlinx.coroutines.Dispatchers

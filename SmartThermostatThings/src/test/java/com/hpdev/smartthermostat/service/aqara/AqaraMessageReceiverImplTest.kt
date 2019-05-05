@@ -5,7 +5,8 @@ import arrow.core.Either.Companion.right
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraMessageData
 import com.hpdev.netmodels.aqara.AqaraNetMessage
-import com.hpdev.smartthermostat.service.wrapper.MulticastReceiver
+import com.hpdev.smartthermostat.network.MulticastReceiver
+import com.hpdev.smartthermostat.service.AqaraMessageReceiverImpl
 import com.hpdev.smartthermostatcore.models.GenericError
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import com.hpdev.smartthermostatcore.network.parseJson

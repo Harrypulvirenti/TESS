@@ -1,4 +1,4 @@
-package com.hpdev.smartthermostat.service.wrapper
+package com.hpdev.smartthermostat.network
 
 interface UDPMessenger {
 

@@ -1,4 +1,4 @@
-package com.hpdev.smartthermostat.service.aqara
+package com.hpdev.smartthermostat.service
 
 import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
 

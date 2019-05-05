@@ -7,7 +7,7 @@ import com.hpdev.netmodels.aqara.AqaraNetCommand
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.modules.IP
 import com.hpdev.smartthermostat.modules.Temperature
-import com.hpdev.smartthermostat.service.wrapper.UDPMessenger
+import com.hpdev.smartthermostat.network.UDPMessenger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
