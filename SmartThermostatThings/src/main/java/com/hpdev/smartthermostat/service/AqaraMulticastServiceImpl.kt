@@ -1,7 +1,6 @@
 package com.hpdev.smartthermostat.service
 
 import com.hpdev.architecture.sdk.extensions.isNotNullOrEmpty
-import com.hpdev.architecture.sdk.extensions.or
 import com.hpdev.architecture.sdk.extensions.takeIfOrElse
 import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
@@ -11,8 +10,8 @@ import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.database.repository.AqaraMessageRepository
 import com.hpdev.smartthermostat.interfaces.DataUpdater
 import com.hpdev.smartthermostat.models.AqaraMessage
-import com.hpdev.smartthermostat.modules.IP
-import com.hpdev.smartthermostat.modules.Temperature
+import com.hpdev.smartthermostat.models.IP
+import com.hpdev.smartthermostat.models.Temperature
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -34,7 +33,7 @@ class AqaraMulticastServiceImpl(
         { message: AqaraMessage -> message.commandName == REPORT_CMD } to
             { message: AqaraMessage ->
                 launch(Default) {
-                    temperatureUpdater.notifyDataUpdate(message.temperature.or("--"))
+                    temperatureUpdater.notifyDataUpdate(Temperature(message.temperature))
                 }
                 Unit
             },
@@ -43,7 +42,7 @@ class AqaraMulticastServiceImpl(
                 launch(Default) {
                     if (currentIp != message.ip) {
                         currentIp = message.ip
-                        ipUpdater.notifyDataUpdate(message.ip.orEmpty())
+                        ipUpdater.notifyDataUpdate(IP(message.ip))
                     }
                 }
                 Unit

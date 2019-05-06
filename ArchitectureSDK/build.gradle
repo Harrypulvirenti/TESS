@@ -47,6 +47,7 @@ dependencies {
     def arrow_version = "0.9.0"
 //    Arrow
     api "io.arrow-kt:arrow-core-data:$arrow_version"
+    api "io.arrow-kt:arrow-core-extensions:$arrow_version"
 
     def viewModel_version = "2.1.0-alpha04"
 //    ViewModel

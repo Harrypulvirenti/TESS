@@ -1,13 +1,18 @@
 package com.hpdev.smartthermostat.viewmodel
 
 import androidx.lifecycle.ViewModel
+import arrow.core.Either
 import com.hpdev.architecture.sdk.extensions.launch
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.netmodels.aqara.AqaraNetCommand
+import com.hpdev.netmodels.aqara.AqaraNetCommandResponse
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
-import com.hpdev.smartthermostat.modules.IP
-import com.hpdev.smartthermostat.modules.Temperature
+import com.hpdev.smartthermostat.models.IP
+import com.hpdev.smartthermostat.models.Temperature
 import com.hpdev.smartthermostat.network.UDPMessenger
+import com.hpdev.smartthermostat.network.sendAndReceiveMessage
+import com.hpdev.smartthermostatcore.extensions.consume
+import com.hpdev.smartthermostatcore.models.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
@@ -25,17 +30,24 @@ class TemperatureSensorViewModel(
 
         launch(Dispatchers.Default) {
             temperatureSubscription.consumeEach {
-                SmartLogger.d(it)
+                SmartLogger.d(it.value)
             }
         }
 
         receiveIpUpdate()
     }
 
-    private fun receiveIpUpdate() = launch(Dispatchers.IO) {
-        udpMessenger.setDestinationIP(ipUpdateSubscription.receive())
+    private fun receiveIpUpdate() = launch(Dispatchers.Default) {
         val cmd = AqaraNetCommand("get_id_list")
-        udpMessenger.sendMessage(cmd, 9898)
+        val data: Either<NetworkError, AqaraNetCommandResponse> =
+            udpMessenger.sendAndReceiveMessage(
+                ipUpdateSubscription.receive(),
+                9898,
+                cmd
+            )
+        data.consume {
+            SmartLogger.d(it)
+        }
     }
 
     override fun onCleared() {

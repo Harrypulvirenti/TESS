@@ -1,11 +1,12 @@
 package com.hpdev.smartthermostat.network
 
 import com.hpdev.architecture.sdk.extensions.trimToString
+import com.hpdev.smartthermostat.models.IP
+import com.hpdev.smartthermostatcore.extensions.consume
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.net.DatagramPacket
-import java.net.InetAddress
 import java.net.MulticastSocket
 
 private const val BUFFER_SIZE = 2500
@@ -17,21 +18,24 @@ class MulticastReceiverImpl : MulticastReceiver {
     private val receiverBuffer: ByteArray = ByteArray(BUFFER_SIZE)
 
     override suspend fun initSocket(
-        groupIPAddress: String,
+        groupIPAddress: IP,
         port: Int,
         receivePort: Int,
         receiver: suspend (String) -> Unit
     ) {
-        val groupAddress = InetAddress.getByName(groupIPAddress)
-        socket = MulticastSocket(port)
-        receiverDatagram = DatagramPacket(receiverBuffer, receiverBuffer.size, groupAddress, receivePort)
 
-        withContext(Dispatchers.IO) {
-            socket.joinGroup(groupAddress)
-            while (isActive) {
-                socket.receive(receiverDatagram)
-                receiverBuffer.trimToString()?.let {
-                    receiver(it)
+        groupIPAddress.asInetAddress().consume { ip ->
+
+            socket = MulticastSocket(port)
+            receiverDatagram = DatagramPacket(receiverBuffer, receiverBuffer.size, ip, receivePort)
+
+            withContext(Dispatchers.IO) {
+                socket.joinGroup(ip)
+                while (isActive) {
+                    socket.receive(receiverDatagram)
+                    receiverBuffer.trimToString()?.let {
+                        receiver(it)
+                    }
                 }
             }
         }

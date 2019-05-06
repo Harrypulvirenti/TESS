@@ -3,14 +3,13 @@ package com.hpdev.smartthermostat.modules
 import com.hpdev.smartthermostat.interfaces.DataProvider
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.interfaces.DataUpdater
+import com.hpdev.smartthermostat.models.IP
+import com.hpdev.smartthermostat.models.Temperature
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.ReceiveChannel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-
-typealias Temperature = String
-typealias IP = String
 
 const val TEMPERATURE_UPDATER = "temperature-updater"
 const val TEMPERATURE_SUBSCRIBER = "temperature-subscriber"

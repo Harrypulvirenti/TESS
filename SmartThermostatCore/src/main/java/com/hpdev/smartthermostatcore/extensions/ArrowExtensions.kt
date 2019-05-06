@@ -5,7 +5,7 @@ import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.smartthermostatcore.models.ApplicativeError
 import com.hpdev.smartthermostatcore.models.GenericError
 
-fun <E : ApplicativeError, T : Any> Either<E, T>.consume(consumer: (T) -> Unit) =
+inline fun <E : ApplicativeError, T : Any> Either<E, T>.consume(consumer: (T) -> Unit) =
     this.fold(
         {
             when (it) {

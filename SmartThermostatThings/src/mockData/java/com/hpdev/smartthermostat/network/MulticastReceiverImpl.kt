@@ -1,5 +1,6 @@
 package com.hpdev.smartthermostat.network
 
+import com.hpdev.smartthermostat.models.IP
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -9,7 +10,7 @@ class MulticastReceiverImpl : MulticastReceiver {
         "{\"cmd\":\"heartbeat\",\"model\":\"gateway\",\"sid\":\"f0b4299a4a0e\",\"short_id\":\"0\",\"token\":\"zJCU5kiu5UdPbxpN\",\"data\":\"{\\\"ip\\\":\\\"192.168.1.105\\\"}\"}"
 
     override suspend fun initSocket(
-        groupIPAddress: String,
+        groupIPAddress: IP,
         port: Int,
         receivePort: Int,
         receiver: suspend (String) -> Unit
