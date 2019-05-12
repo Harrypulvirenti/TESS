@@ -11,7 +11,7 @@ inline fun <E : ApplicativeError, T : Any> Either<E, T>.consume(consumer: (T) ->
             when (it) {
                 is GenericError -> {
                     SmartLogger.e(
-                        errorMessage = "Consume Either failure: " + it.e.message.orEmpty(),
+                        errorMessage = it.message,
                         throwable = it.e
                     )
                 }

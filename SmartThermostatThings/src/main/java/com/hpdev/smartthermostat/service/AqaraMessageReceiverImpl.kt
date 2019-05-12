@@ -14,10 +14,6 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private val MULTICAST_IP_ADDRESS = IP("224.0.0.50")
-private const val MULTICAST_PORT = 9898
-private const val MULTICAST_RECEIVER_PORT = 4444
-
 class AqaraMessageReceiverImpl(
     private val multicastReceiver: MulticastReceiver,
     private val objectParser: ObjectParser
@@ -53,5 +49,12 @@ class AqaraMessageReceiverImpl(
                 messageChannel.send(message)
             }
         }
+    }
+
+    private val MULTICAST_IP_ADDRESS = IP("224.0.0.50")
+
+    companion object {
+        private const val MULTICAST_PORT = 9898
+        private const val MULTICAST_RECEIVER_PORT = 4444
     }
 }

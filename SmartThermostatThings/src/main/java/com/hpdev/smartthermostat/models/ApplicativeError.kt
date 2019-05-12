@@ -1,9 +1,7 @@
 package com.hpdev.smartthermostat.models
 
-import com.hpdev.smartthermostatcore.models.NetworkError
+import com.hpdev.smartthermostatcore.models.GenericError
 
-class MalformedIPError(message: String) : NetworkError(message)
+class MalformedIPError(message: String, e: Throwable?) : GenericError(message, e)
 
-class MessageParsingError(message: String) : NetworkError(message)
-
-class TimeoutError(message: String) : NetworkError(message)
+class TimeoutError(message: String) : GenericError(message)

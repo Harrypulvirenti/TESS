@@ -20,6 +20,14 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+        baseline file("lint-errors.xml")
+        checkAllWarnings true
+        warningsAsErrors true
+        abortOnError true
+    }
+
     // Todo remove when coroutines issue is fixed
     packagingOptions {
         pickFirst("META-INF/atomicfu.kotlin_module")

@@ -7,7 +7,7 @@ import com.hpdev.netmodels.aqara.AqaraMessageData
 import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.network.MulticastReceiver
 import com.hpdev.smartthermostat.service.AqaraMessageReceiverImpl
-import com.hpdev.smartthermostatcore.models.GenericError
+import com.hpdev.smartthermostatcore.models.ParsingError
 import com.hpdev.smartthermostatcore.network.ObjectParser
 import com.hpdev.smartthermostatcore.network.parseJson
 import io.mockk.every
@@ -21,7 +21,7 @@ import org.junit.Test
 class AqaraMessageReceiverImplTest {
 
     private val objectParser = mockk<ObjectParser>()
-    private val multicastReceiver = mockk<MulticastReceiver>(relaxUnitFun = true)
+    private val multicastReceiver = mockk<MulticastReceiver>(relaxed = true)
 
     private val sut = AqaraMessageReceiverImpl(multicastReceiver, objectParser)
 
@@ -65,19 +65,19 @@ class AqaraMessageReceiverImplTest {
     fun `Should log exception on parsing error`() {
 
         val json = "json"
-        val e = Exception("Test Error")
+        val error = ParsingError("Error", Exception("Exception"))
         mockkObject(SmartLogger.Companion)
 
         runBlocking {
 
-            every { objectParser.parseJson<AqaraNetMessage>(any<String>()) } returns left(GenericError(e))
+            every { objectParser.parseJson<AqaraNetMessage>(any<String>()) } returns left(error)
             sut.onNetworkMessageReceived(json)
 
             verify {
                 objectParser.parseJson<AqaraNetMessage>(json)
                 SmartLogger.e(
-                    errorMessage = "Consume Either failure: " + e.message,
-                    throwable = e
+                    errorMessage = error.message,
+                    throwable = error.e
                 )
             }
         }
@@ -94,7 +94,7 @@ class AqaraMessageReceiverImplTest {
             sid = "sid",
             dataJson = jsonData
         )
-        val e = Exception("Data Error")
+        val error = ParsingError("Error", Exception("Exception"))
         mockkObject(SmartLogger.Companion)
 
         runBlocking {
@@ -103,7 +103,7 @@ class AqaraMessageReceiverImplTest {
 
             every { objectParser.parseJson<AqaraNetMessage>(any<String>()) } returns right(message)
 
-            every { objectParser.parseJson<AqaraMessageData>(any<String>()) } returns left(GenericError(e))
+            every { objectParser.parseJson<AqaraMessageData>(any<String>()) } returns left(error)
 
             sut.onNetworkMessageReceived(json)
 
@@ -111,8 +111,8 @@ class AqaraMessageReceiverImplTest {
                 objectParser.parseJson<AqaraNetMessage>(json)
                 objectParser.parseJson<AqaraMessageData>(jsonData)
                 SmartLogger.e(
-                    errorMessage = "Consume Either failure: " + e.message,
-                    throwable = e
+                    errorMessage = error.message+"d",
+                    throwable = error.e
                 )
             }
 

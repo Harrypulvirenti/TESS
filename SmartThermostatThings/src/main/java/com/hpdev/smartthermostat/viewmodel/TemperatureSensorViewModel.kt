@@ -12,7 +12,7 @@ import com.hpdev.smartthermostat.models.Temperature
 import com.hpdev.smartthermostat.network.UDPMessenger
 import com.hpdev.smartthermostat.network.sendAndReceiveMessage
 import com.hpdev.smartthermostatcore.extensions.consume
-import com.hpdev.smartthermostatcore.models.NetworkError
+import com.hpdev.smartthermostatcore.models.GenericError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
@@ -39,7 +39,7 @@ class TemperatureSensorViewModel(
 
     private fun receiveIpUpdate() = launch(Dispatchers.Default) {
         val cmd = AqaraNetCommand("get_id_list")
-        val data: Either<NetworkError, AqaraNetCommandResponse> =
+        val data: Either<GenericError, AqaraNetCommandResponse> =
             udpMessenger.sendAndReceiveMessage(
                 ipUpdateSubscription.receive(),
                 9898,

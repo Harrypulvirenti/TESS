@@ -10,6 +10,6 @@ inline class IP(private val ip: String?) {
         get() = ip.orEmpty()
 
     fun asInetAddress(): Either<MalformedIPError, InetAddress> = Try { InetAddress.getByName(value) }.toEither {
-        MalformedIPError("IP Format Error: " + it.message)
+        MalformedIPError("IP Format Error: " + it.message, it)
     }
 }

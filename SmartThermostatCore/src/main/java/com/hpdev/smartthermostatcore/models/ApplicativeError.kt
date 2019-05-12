@@ -2,6 +2,8 @@ package com.hpdev.smartthermostatcore.models
 
 sealed class ApplicativeError
 
-open class NetworkError(val message: String) : ApplicativeError()
+open class GenericError(val message: String, val e: Throwable? = null) : ApplicativeError()
 
-class GenericError(val e: Throwable) : ApplicativeError()
+class NetworkError(message: String, e: Throwable?) : GenericError(message, e)
+
+class ParsingError(message: String, e: Throwable?) : GenericError(message, e)

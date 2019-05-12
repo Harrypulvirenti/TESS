@@ -2,16 +2,14 @@ package com.hpdev.smartthermostat.network
 
 import arrow.core.Either
 import arrow.core.Try
-import arrow.core.Tuple2
-import arrow.core.extensions.either.functor.tupleRight
+import arrow.core.extensions.either.applicative.applicative
 import arrow.core.extensions.either.monad.flatten
+import arrow.core.fix
 import arrow.core.flatMap
 import arrow.core.toOption
 import com.hpdev.architecture.sdk.extensions.trimToString
 import com.hpdev.smartthermostat.models.IP
-import com.hpdev.smartthermostat.models.MessageParsingError
 import com.hpdev.smartthermostat.models.TimeoutError
-import com.hpdev.smartthermostatcore.models.ApplicativeError
 import com.hpdev.smartthermostatcore.models.GenericError
 import com.hpdev.smartthermostatcore.models.NetworkError
 import com.hpdev.smartthermostatcore.network.ObjectParser
@@ -35,7 +33,7 @@ class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
         socket.soTimeout = TIMEOUT
     }
 
-    override suspend fun <T : Any> sendMessage(ip: IP, port: Int, message: T): Either<NetworkError, Unit> =
+    override suspend fun <T : Any> sendMessage(ip: IP, port: Int, message: T): Either<GenericError, Unit> =
         ip.asInetAddress()
             .parseMessage(port, message)
             .sendMessage()
@@ -45,7 +43,7 @@ class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
         port: Int,
         message: T,
         response: KClass<R>
-    ): Either<NetworkError, R> =
+    ): Either<GenericError, R> =
         ip.asInetAddress()
             .parseMessage(port, message)
             .sendMessage()
@@ -56,63 +54,50 @@ class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
         withContext(IO) {
             Try {
                 socket.send(data)
-            }.toEither { GenericError(it) }
+            }.toEither { NetworkError("Network Error: " + it.message, it) }
         }
 
-    private suspend fun <T : Any> Either<NetworkError, InetAddress>.parseMessage(
+    private suspend fun <T : Any> Either<GenericError, InetAddress>.parseMessage(
         port: Int,
         message: T
-    ): Either<NetworkError, DatagramPacket> =
+    ): Either<GenericError, DatagramPacket> =
         withContext(Default) {
-            tupleRight(objectParser.toJSONBytes(message))
-                .flatMap { tuple: Tuple2<InetAddress, Either<ApplicativeError, ByteArray>> ->
-                    tuple.b
-                        .mapToParsingError()
-                        .map { bytesMessage ->
-                            DatagramPacket(
-                                bytesMessage,
-                                bytesMessage.size,
-                                tuple.a,
-                                port
-                            )
-                        }
-                }
+            Either.applicative<GenericError>().map(this@parseMessage, objectParser.toJSONBytes(message)) {
+                val (ip, bytesMessage) = it
+                DatagramPacket(
+                    bytesMessage,
+                    bytesMessage.size,
+                    ip,
+                    port
+                )
+            }.fix()
         }
 
-    private suspend fun Either<NetworkError, DatagramPacket>.sendMessage(): Either<NetworkError, Unit> =
-        this.flatMap { data ->
+    private suspend fun Either<GenericError, DatagramPacket>.sendMessage(): Either<GenericError, Unit> =
+        flatMap { data ->
             sendMessage(data)
-        }.mapLeft {
-            it as GenericError
-            NetworkError("Network Error: " + it.e.message)
         }
 
-    private suspend fun Either<NetworkError, Unit>.receiveMessage(): Either<NetworkError, String> =
+    private suspend fun Either<GenericError, Unit>.receiveMessage(): Either<GenericError, String> =
         withContext(IO) {
-            map {
+            flatMap {
                 Try {
                     val buffer = ByteArray(BUFFER_SIZE)
                     val receiver = DatagramPacket(buffer, buffer.size)
                     withTimeoutOrNull(TIMEOUT.toLong()) {
                         socket.receive(receiver)
                         buffer.trimToString()
-                    }.toOption().toEither { TimeoutError("Receiver timeout") }
-                }.toEither { NetworkError("Network Error: " + it.message) }
-            }.flatten().flatten()
-        }
+                    }.toOption().toEither { TimeoutError("Receiver Timeout Error") }
 
-    private suspend fun <R : Any> Either<NetworkError, String>.parseMessage(response: KClass<R>): Either<NetworkError, R> =
-        withContext(Default) {
-            map { message ->
-                objectParser.parseJson(message, response)
-                    .mapToParsingError()
+                }.toEither { NetworkError("Network Error: " + it.message, it) }
             }.flatten()
         }
 
-    private fun <T : Any> Either<ApplicativeError, T>.mapToParsingError(): Either<MessageParsingError, T> =
-        this.mapLeft {
-            it as GenericError
-            MessageParsingError("Message Parsing Error: " + it.e.message)
+    private suspend fun <R : Any> Either<GenericError, String>.parseMessage(response: KClass<R>): Either<GenericError, R> =
+        withContext(Default) {
+            flatMap { message ->
+                objectParser.parseJson(message, response)
+            }
         }
 }
 
@@ -120,4 +105,4 @@ suspend inline fun <T : Any, reified R : Any> UDPMessenger.sendAndReceiveMessage
     ip: IP,
     port: Int,
     message: T
-): Either<NetworkError, R> = this.sendAndReceiveMessage(ip, port, message, R::class)
+): Either<GenericError, R> = this.sendAndReceiveMessage(ip, port, message, R::class)
