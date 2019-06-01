@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { TemperatureSensorViewModel(get(), get(named(TEMPERATURE_SUBSCRIBER)), get(named(IP_SUBSCRIBER))) }
+    viewModel { TemperatureSensorViewModel(get(named(TEMPERATURE_SUBSCRIBER))) }
 }

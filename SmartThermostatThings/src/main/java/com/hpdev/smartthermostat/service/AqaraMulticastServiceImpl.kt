@@ -6,12 +6,12 @@ import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.architecture.sdk.utils.SmartLogger
 import com.hpdev.architecture.sdk.utils.timestamp
-import com.hpdev.netmodels.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.database.repository.AqaraMessageRepository
 import com.hpdev.smartthermostat.interfaces.DataUpdater
 import com.hpdev.smartthermostat.models.AqaraMessage
 import com.hpdev.smartthermostat.models.IP
 import com.hpdev.smartthermostat.models.Temperature
+import com.hpdev.smartthermostat.models.aqara.AqaraNetMessage
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ReceiveChannel

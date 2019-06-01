@@ -1,15 +1,15 @@
 ext.versions = [
         constraintLayout         : '2.0.0-beta1',
         appCompat                : '1.1.0-alpha05',
-        room                     : '2.1.0-beta01',
+        room                     : '2.1.0-rc01',
         things                   : '1.0',
-        espresso                 : '3.2.0-beta01',
-        runner                   : '1.2.0-beta01',
-        junit                    : '1.1.1-beta01',
+        espresso                 : '3.2.0',
+        runner                   : '1.2.0',
+        junit                    : '1.1.1',
         mockk                    : '1.9.3',
         robolectric              : '4.2',
-        firebaseFirestone        : '19.0.0',
-        jackson                  : '2.9.8',
+        firebaseFirestone        : '19.0.2',
+        jackson                  : '2.9.9',
         koin                     : '2.0.0-rc-3',
         coroutine                : '1.2.1'
 ]

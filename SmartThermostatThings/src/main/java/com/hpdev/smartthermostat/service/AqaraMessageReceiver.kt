@@ -1,6 +1,6 @@
 package com.hpdev.smartthermostat.service
 
-import com.hpdev.netmodels.aqara.AqaraNetMessage
+import com.hpdev.smartthermostat.models.aqara.AqaraNetMessage
 import kotlinx.coroutines.channels.ReceiveChannel
 
 interface AqaraMessageReceiver {

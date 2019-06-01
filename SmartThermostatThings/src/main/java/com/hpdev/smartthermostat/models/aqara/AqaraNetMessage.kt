@@ -1,7 +1,9 @@
-package com.hpdev.netmodels.aqara
+package com.hpdev.smartthermostat.models.aqara
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+
+private const val ACK_POSTFIX = "_ack"
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AqaraNetMessage(
@@ -14,3 +16,6 @@ data class AqaraNetMessage(
 ) {
     var data: AqaraMessageData? = null
 }
+
+infix fun AqaraNetMessage.isAckOf(command: String): Boolean =
+    commandName.orEmpty() == command + ACK_POSTFIX

@@ -8,12 +8,16 @@ import com.hpdev.smartthermostat.service.AqaraMessageReceiver
 import com.hpdev.smartthermostat.service.AqaraMessageReceiverImpl
 import com.hpdev.smartthermostat.service.AqaraMulticastService
 import com.hpdev.smartthermostat.service.AqaraMulticastServiceImpl
+import com.hpdev.smartthermostat.service.AqaraSensorDiscoveryService
+import com.hpdev.smartthermostat.service.AqaraSensorDiscoveryServiceImpl
+import com.hpdev.smartthermostat.service.TemperatureSensorService
+import com.hpdev.smartthermostat.service.TemperatureSensorServiceImpl
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val aqaraModule = module {
 
-    single<MulticastReceiver> { MulticastReceiverImpl() }
+    factory<MulticastReceiver> { MulticastReceiverImpl() }
 
     single<AqaraMessageReceiver> {
         AqaraMessageReceiverImpl(
@@ -31,5 +35,17 @@ val aqaraModule = module {
         )
     }
 
-    single<UDPMessenger> { UDPMessengerImpl(get()) }
+    factory<UDPMessenger> { UDPMessengerImpl(get()) }
+
+    single<AqaraSensorDiscoveryService> { AqaraSensorDiscoveryServiceImpl(get(), get(), get(named(IP_SUBSCRIBER))) }
+
+    single<TemperatureSensorService> {
+        TemperatureSensorServiceImpl(
+            get(),
+            get(),
+            get(named(TEMPERATURE_UPDATER)),
+            get(named(IP_SUBSCRIBER)),
+            get(named(SENSOR_SUBSCRIBER))
+        )
+    }
 }

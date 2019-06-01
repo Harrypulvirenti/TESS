@@ -66,10 +66,10 @@ dependencies {
 
 //    Firebase
     api "com.google.firebase:firebase-core:16.0.9"
-    api "com.google.firebase:firebase-common:17.0.0"
+    api "com.google.firebase:firebase-common:17.1.0"
 
     //    Crashlytics
-    api "com.crashlytics.sdk.android:crashlytics:2.10.0"
+    api "com.crashlytics.sdk.android:crashlytics:2.10.1"
 }
 repositories {
     mavenCentral()

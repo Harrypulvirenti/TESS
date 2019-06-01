@@ -65,5 +65,8 @@ dependencies {
     implementation libraries.room
     kapt libraries.roomCompiler
     implementation libraries.roomKTX
+
+//    Jackson
+    implementation libraries.jacksonAnnotation
 }
 apply plugin: 'com.google.gms.google-services'

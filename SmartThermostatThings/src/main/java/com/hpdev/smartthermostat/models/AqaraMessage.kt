@@ -3,7 +3,7 @@ package com.hpdev.smartthermostat.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.hpdev.netmodels.aqara.AqaraNetMessage
+import com.hpdev.smartthermostat.models.aqara.AqaraNetMessage
 
 const val AQARA_NETWORK_MESSAGES_TABLE = "AQARA_NETWORK_MESSAGES"
 

@@ -3,8 +3,10 @@ package com.hpdev.smartthermostat.modules
 import com.hpdev.smartthermostat.interfaces.DataProvider
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.interfaces.DataUpdater
+import com.hpdev.smartthermostat.models.AqaraSensor
 import com.hpdev.smartthermostat.models.IP
 import com.hpdev.smartthermostat.models.Temperature
+import com.hpdev.smartthermostat.service.AqaraSensorDiscoveryService
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -15,6 +17,7 @@ const val TEMPERATURE_UPDATER = "temperature-updater"
 const val TEMPERATURE_SUBSCRIBER = "temperature-subscriber"
 const val IP_UPDATER = "ip-updater"
 const val IP_SUBSCRIBER = "ip-subscriber"
+const val SENSOR_SUBSCRIBER = "sensor-subscriber"
 
 private val temperatureProvider = object : DataProvider<Temperature> {
 
@@ -47,4 +50,6 @@ val providersModule = module {
     single<DataUpdater<IP>>(named(IP_UPDATER)) { ipProvider }
 
     single<DataSubscriber<IP>>(named(IP_SUBSCRIBER)) { ipProvider }
+
+    single<DataSubscriber<List<AqaraSensor>>>(named(SENSOR_SUBSCRIBER)) { get<AqaraSensorDiscoveryService>() }
 }

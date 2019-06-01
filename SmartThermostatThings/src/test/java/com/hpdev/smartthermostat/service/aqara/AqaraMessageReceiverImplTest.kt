@@ -3,8 +3,8 @@ package com.hpdev.smartthermostat.service.aqara
 import arrow.core.Either.Companion.left
 import arrow.core.Either.Companion.right
 import com.hpdev.architecture.sdk.utils.SmartLogger
-import com.hpdev.netmodels.aqara.AqaraMessageData
-import com.hpdev.netmodels.aqara.AqaraNetMessage
+import com.hpdev.smartthermostat.models.aqara.AqaraMessageData
+import com.hpdev.smartthermostat.models.aqara.AqaraNetMessage
 import com.hpdev.smartthermostat.network.MulticastReceiver
 import com.hpdev.smartthermostat.service.AqaraMessageReceiverImpl
 import com.hpdev.smartthermostatcore.models.ParsingError
@@ -111,7 +111,7 @@ class AqaraMessageReceiverImplTest {
                 objectParser.parseJson<AqaraNetMessage>(json)
                 objectParser.parseJson<AqaraMessageData>(jsonData)
                 SmartLogger.e(
-                    errorMessage = error.message+"d",
+                    errorMessage = error.message + "d",
                     throwable = error.e
                 )
             }

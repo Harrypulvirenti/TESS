@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
 
-    single { AqaraMessageRepositoryImpl(get()) as AqaraMessageRepository }
+    single<AqaraMessageRepository> { AqaraMessageRepositoryImpl(get()) }
 }
