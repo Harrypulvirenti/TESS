@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val sdkModule = module {
 
-    single<ApplicationInitializer> { MainInitializer() }
+    factory<ApplicationInitializer> { MainInitializer() }
 }

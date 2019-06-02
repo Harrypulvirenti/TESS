@@ -36,9 +36,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-//    todo remove after koin support intoSet
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
     testImplementation libraries.junit
 
 //    Logger
@@ -59,7 +56,7 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
 
-    def koin_version = "2.0.0-rc-2"
+    def koin_version = "2.0.1"
 //    Koin
     api "org.koin:koin-android:$koin_version"
     api "org.koin:koin-androidx-viewmodel:$koin_version"

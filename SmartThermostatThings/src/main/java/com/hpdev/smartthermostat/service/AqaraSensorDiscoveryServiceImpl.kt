@@ -6,6 +6,7 @@ import arrow.core.getOrElse
 import arrow.core.left
 import arrow.core.orNull
 import com.hpdev.architecture.sdk.extensions.onNotNull
+import com.hpdev.architecture.sdk.interfaces.ApplicationStarter
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
 import com.hpdev.smartthermostat.interfaces.DataSubscriber
 import com.hpdev.smartthermostat.models.AqaraSensor
@@ -34,7 +35,7 @@ class AqaraSensorDiscoveryServiceImpl(
     private val udpMessenger: UDPMessenger,
     private val objectParser: ObjectParser,
     ipSubscriber: DataSubscriber<IP>
-) : AqaraSensorDiscoveryService, CoroutineHandler {
+) : AqaraSensorDiscoveryService, ApplicationStarter, CoroutineHandler {
 
     override val job = Job()
     private var currentIP: IP? = null
