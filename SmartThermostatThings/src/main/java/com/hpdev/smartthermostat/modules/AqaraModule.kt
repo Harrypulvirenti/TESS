@@ -51,5 +51,5 @@ val aqaraModule = module {
             get(named(IP_SUBSCRIBER)),
             get(named(SENSOR_SUBSCRIBER))
         )
-    }
+    } bind ApplicationStarter::class
 }

@@ -38,7 +38,7 @@ class AqaraSensorDiscoveryServiceImpl(
 ) : AqaraSensorDiscoveryService, ApplicationStarter, CoroutineHandler {
 
     override val job = Job()
-    private var currentIP: IP? = null
+    private var currentIP = IP()
     private val discoveredSensorChannel = ConflatedBroadcastChannel<List<AqaraSensor>>()
 
     init {
@@ -60,41 +60,37 @@ class AqaraSensorDiscoveryServiceImpl(
     }
 
     private suspend fun startDiscovery() {
-        currentIP?.let { ip ->
-            Retriable {
-                udpMessenger.sendAndReceiveMessage<AqaraNetCommand, AqaraNetMessage>(
-                    ip,
-                    GATEWAY_UDP_PORT,
-                    AqaraNetCommand(GATEWAY_CMD_ID_LIST)
-                )
-            }.retryIfIsNotAckOf(GATEWAY_CMD_ID_LIST)
-                .flatMap { message ->
-                    message.dataJson?.let { objectParser.parseJson<List<String>>(it) } ?: left()
-                }
-                .getOrElse { emptyList() }
-                .mapNotNull {
-                    identifySensor(it)
-                }.also {
-                    discoveredSensorChannel.send(it)
-                }
-        }
+        Retriable {
+            udpMessenger.sendAndReceiveMessage<AqaraNetCommand, AqaraNetMessage>(
+                currentIP,
+                GATEWAY_UDP_PORT,
+                AqaraNetCommand(GATEWAY_CMD_ID_LIST)
+            )
+        }.retryIfIsNotAckOf(GATEWAY_CMD_ID_LIST)
+            .flatMap { message ->
+                message.dataJson?.let { objectParser.parseJson<List<String>>(it) } ?: left()
+            }
+            .getOrElse { emptyList() }
+            .mapNotNull {
+                identifySensor(it)
+            }.also {
+                discoveredSensorChannel.send(it)
+            }
     }
 
     private suspend fun identifySensor(sensorId: String): AqaraSensor? =
-        currentIP?.let { ip ->
-            Retriable {
-                udpMessenger.sendAndReceiveMessage<AqaraNetCommand, AqaraNetMessage>(
-                    ip,
-                    GATEWAY_UDP_PORT,
-                    AqaraNetCommand(GATEWAY_CMD_READ, sensorId)
-                )
-            }.retryIfIsNotAckOf(GATEWAY_CMD_READ)
-                .map {
-                    onNotNull(it.sid, it.model) { sid, model ->
-                        AqaraSensor(sid, model)
-                    }
-                }.orNull()
-        }
+        Retriable {
+            udpMessenger.sendAndReceiveMessage<AqaraNetCommand, AqaraNetMessage>(
+                currentIP,
+                GATEWAY_UDP_PORT,
+                AqaraNetCommand(GATEWAY_CMD_READ, sensorId)
+            )
+        }.retryIfIsNotAckOf(GATEWAY_CMD_READ)
+            .map {
+                onNotNull(it.sid, it.model) { sid, model ->
+                    AqaraSensor(sid, model)
+                }
+            }.orNull()
 }
 
 suspend fun Retriable<GenericError, AqaraNetMessage>.retryIfIsNotAckOf(command: String): Either<GenericError, AqaraNetMessage> =

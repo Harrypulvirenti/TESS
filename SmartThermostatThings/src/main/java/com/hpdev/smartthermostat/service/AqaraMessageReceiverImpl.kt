@@ -1,9 +1,9 @@
 package com.hpdev.smartthermostat.service
 
 import com.hpdev.architecture.sdk.interfaces.CoroutineHandler
-import com.hpdev.smartthermostat.models.IP
 import com.hpdev.smartthermostat.models.aqara.AqaraMessageData
 import com.hpdev.smartthermostat.models.aqara.AqaraNetMessage
+import com.hpdev.smartthermostat.models.asIP
 import com.hpdev.smartthermostat.network.MulticastReceiver
 import com.hpdev.smartthermostatcore.extensions.consume
 import com.hpdev.smartthermostatcore.network.ObjectParser
@@ -13,6 +13,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+private const val MULTICAST_IP_ADDRESS = "224.0.0.50"
+private const val MULTICAST_PORT = 9898
+private const val MULTICAST_RECEIVER_PORT = 4444
 
 class AqaraMessageReceiverImpl(
     private val multicastReceiver: MulticastReceiver,
@@ -27,7 +31,7 @@ class AqaraMessageReceiverImpl(
         launch(Default) {
 
             multicastReceiver.initSocket(
-                MULTICAST_IP_ADDRESS,
+                MULTICAST_IP_ADDRESS.asIP(),
                 MULTICAST_PORT,
                 MULTICAST_RECEIVER_PORT,
                 this@AqaraMessageReceiverImpl::onNetworkMessageReceived
@@ -49,12 +53,5 @@ class AqaraMessageReceiverImpl(
                 messageChannel.send(message)
             }
         }
-    }
-
-    private val MULTICAST_IP_ADDRESS = IP("224.0.0.50")
-
-    companion object {
-        private const val MULTICAST_PORT = 9898
-        private const val MULTICAST_RECEIVER_PORT = 4444
     }
 }
