@@ -1,3 +1,0 @@
-package com.hpdev.smartthermostat.service
-
-interface AqaraMulticastService
