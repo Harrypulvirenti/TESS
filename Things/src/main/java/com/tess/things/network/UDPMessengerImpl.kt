@@ -2,17 +2,15 @@ package com.tess.things.network
 
 import arrow.core.Either
 import arrow.core.Try
-import arrow.core.extensions.either.applicative.applicative
 import arrow.core.extensions.either.monad.flatten
-import arrow.core.fix
 import arrow.core.flatMap
 import arrow.core.toOption
 import com.tess.architecture.sdk.extensions.trimToString
-import com.tess.things.models.IP
-import com.tess.things.models.TimeoutError
 import com.tess.core.models.GenericError
 import com.tess.core.models.NetworkError
 import com.tess.core.network.ObjectParser
+import com.tess.things.models.IP
+import com.tess.things.models.TimeoutError
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
@@ -25,9 +23,10 @@ import kotlin.reflect.KClass
 private const val TIMEOUT = 2000
 private const val BUFFER_SIZE = 5000
 
-class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
-
-    private val socket = DatagramSocket()
+class UDPMessengerImpl(
+    private val objectParser: ObjectParser,
+    private val socket: DatagramSocket = DatagramSocket()
+) : UDPMessenger {
 
     init {
         socket.soTimeout = TIMEOUT
@@ -62,15 +61,16 @@ class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
         message: T
     ): Either<GenericError, DatagramPacket> =
         withContext(Default) {
-            Either.applicative<GenericError>().map(this@parseMessage, objectParser.toJSONBytes(message)) {
-                val (ip, bytesMessage) = it
-                DatagramPacket(
-                    bytesMessage,
-                    bytesMessage.size,
-                    ip,
-                    port
-                )
-            }.fix()
+            flatMap { ip ->
+                objectParser.toJSONBytes(message).map { bytesMessage ->
+                    DatagramPacket(
+                        bytesMessage,
+                        bytesMessage.size,
+                        ip,
+                        port
+                    )
+                }
+            }
         }
 
     private suspend fun Either<GenericError, DatagramPacket>.sendMessage(): Either<GenericError, Unit> =
@@ -82,11 +82,10 @@ class UDPMessengerImpl(private val objectParser: ObjectParser) : UDPMessenger {
         withContext(IO) {
             flatMap {
                 Try {
-                    val buffer = ByteArray(BUFFER_SIZE)
-                    val receiver = DatagramPacket(buffer, buffer.size)
+                    val receiver = DatagramPacket(ByteArray(BUFFER_SIZE), BUFFER_SIZE)
                     withTimeoutOrNull(TIMEOUT.toLong()) {
                         socket.receive(receiver)
-                        buffer.trimToString()
+                        receiver.data.trimToString()
                     }.toOption().toEither { TimeoutError("Receiver Timeout Error") }
 
                 }.toEither { NetworkError("Network Error: " + it.message, it) }

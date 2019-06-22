@@ -2,8 +2,14 @@ package com.tess.core.models
 
 sealed class ApplicativeError
 
-open class GenericError(val message: String, val e: Throwable? = null) : ApplicativeError()
+open class GenericError(open val message: String, open val e: Throwable? = null) : ApplicativeError()
 
-class NetworkError(message: String, e: Throwable?) : GenericError(message, e)
+data class NetworkError(
+    override val message: String,
+    override val e: Throwable?
+) : GenericError(message, e)
 
-class ParsingError(message: String, e: Throwable?) : GenericError(message, e)
+data class ParsingError(
+    override val message: String,
+    override val e: Throwable?
+) : GenericError(message, e)

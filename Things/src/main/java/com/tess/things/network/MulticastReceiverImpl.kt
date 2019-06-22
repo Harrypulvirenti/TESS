@@ -1,8 +1,8 @@
 package com.tess.things.network
 
 import com.tess.architecture.sdk.extensions.trimToString
-import com.tess.things.models.IP
 import com.tess.core.extensions.consume
+import com.tess.things.models.IP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
@@ -15,7 +15,6 @@ class MulticastReceiverImpl : MulticastReceiver {
 
     private lateinit var socket: MulticastSocket
     private lateinit var receiverDatagram: DatagramPacket
-    private val receiverBuffer: ByteArray = ByteArray(BUFFER_SIZE)
 
     override suspend fun initSocket(
         groupIPAddress: IP,
@@ -27,13 +26,13 @@ class MulticastReceiverImpl : MulticastReceiver {
         groupIPAddress.asInetAddress().consume { ip ->
 
             socket = MulticastSocket(port)
-            receiverDatagram = DatagramPacket(receiverBuffer, receiverBuffer.size, ip, receivePort)
+            receiverDatagram = DatagramPacket(ByteArray(BUFFER_SIZE), BUFFER_SIZE, ip, receivePort)
 
             withContext(Dispatchers.IO) {
                 socket.joinGroup(ip)
                 while (isActive) {
                     socket.receive(receiverDatagram)
-                    receiverBuffer.trimToString()?.let {
+                    receiverDatagram.data.trimToString()?.let {
                         receiver(it)
                     }
                 }

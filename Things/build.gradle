@@ -7,7 +7,7 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion compileSdk
     defaultConfig {
-        applicationId "com.hpdev.smartthermostat"
+        applicationId "com.tess.things"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode versionCode
