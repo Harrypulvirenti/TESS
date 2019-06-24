@@ -43,9 +43,7 @@ class UDPMessengerImpl(
         message: T,
         response: KClass<R>
     ): Either<GenericError, R> =
-        ip.asInetAddress()
-            .parseMessage(port, message)
-            .sendMessage()
+        sendMessage(ip, port, message)
             .receiveMessage()
             .parseMessage(response)
 
