@@ -34,8 +34,8 @@ class UDPMessengerImpl(
 
     override suspend fun <T : Any> sendMessage(ip: IP, port: Int, message: T): Either<GenericError, Unit> =
         ip.asInetAddress()
-            .parseMessage(port, message)
-            .sendMessage()
+            .createDatagramMessage(port, message)
+            .sendDatagramMessage()
 
     override suspend fun <T : Any, R : Any> sendAndReceiveMessage(
         ip: IP,
@@ -45,7 +45,7 @@ class UDPMessengerImpl(
     ): Either<GenericError, R> =
         sendMessage(ip, port, message)
             .receiveMessage()
-            .parseMessage(response)
+            .parseReceivedMessage(response)
 
     private suspend fun sendMessage(data: DatagramPacket): Either<GenericError, Unit> =
         withContext(IO) {
@@ -54,7 +54,7 @@ class UDPMessengerImpl(
             }.toEither { NetworkError("Network Error: " + it.message, it) }
         }
 
-    private suspend fun <T : Any> Either<GenericError, InetAddress>.parseMessage(
+    private suspend fun <T : Any> Either<GenericError, InetAddress>.createDatagramMessage(
         port: Int,
         message: T
     ): Either<GenericError, DatagramPacket> =
@@ -71,7 +71,7 @@ class UDPMessengerImpl(
             }
         }
 
-    private suspend fun Either<GenericError, DatagramPacket>.sendMessage(): Either<GenericError, Unit> =
+    private suspend fun Either<GenericError, DatagramPacket>.sendDatagramMessage(): Either<GenericError, Unit> =
         flatMap { data ->
             sendMessage(data)
         }
@@ -90,7 +90,7 @@ class UDPMessengerImpl(
             }.flatten()
         }
 
-    private suspend fun <R : Any> Either<GenericError, String>.parseMessage(response: KClass<R>): Either<GenericError, R> =
+    private suspend fun <R : Any> Either<GenericError, String>.parseReceivedMessage(response: KClass<R>): Either<GenericError, R> =
         withContext(Default) {
             flatMap { message ->
                 objectParser.parseJson(message, response)
