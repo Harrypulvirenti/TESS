@@ -4,6 +4,8 @@ TESS
 ----
 Maybe is your girlfriend or just your Thermostat!
 
+[![Build Status](https://app.bitrise.io/app/1c5df9218034c99c/status.svg?token=ma7caOlYJCmGpv3BreCUoQ)](https://app.bitrise.io/app/1c5df9218034c99c)
+
 Overview
 --------
 Thermal Economy Smart System, these words enclose the main goals of this project.
