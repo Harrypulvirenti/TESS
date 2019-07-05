@@ -2,8 +2,9 @@ package com.tess.mobile
 
 import android.app.Application
 import com.tess.architecture.sdk.extensions.initKoin
-import com.tess.things.BuildConfig.DEBUG
 import com.tess.core.modules.coreModule
+import com.tess.core.modules.networkModule
+import com.tess.mobile.BuildConfig.DEBUG
 
 class MobileApplication : Application() {
 
@@ -11,6 +12,7 @@ class MobileApplication : Application() {
         super.onCreate()
         initKoin(
             DEBUG,
+            networkModule,
             coreModule
         )
     }

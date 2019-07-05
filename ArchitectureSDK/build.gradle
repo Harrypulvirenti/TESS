@@ -46,7 +46,7 @@ dependencies {
     api "io.arrow-kt:arrow-core-data:$arrow_version"
     api "io.arrow-kt:arrow-core-extensions:$arrow_version"
 
-    def viewModel_version = "2.2.0-alpha01"
+    def viewModel_version = "2.2.0-alpha02"
 //    ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$viewModel_version"
@@ -62,8 +62,8 @@ dependencies {
     api "org.koin:koin-androidx-viewmodel:$koin_version"
 
 //    Firebase
-    api "com.google.firebase:firebase-core:16.0.9"
-    api "com.google.firebase:firebase-common:17.1.0"
+    api "com.google.firebase:firebase-core:17.0.0"
+    api "com.google.firebase:firebase-common:18.0.0"
 
     //    Crashlytics
     api "com.crashlytics.sdk.android:crashlytics:2.10.1"

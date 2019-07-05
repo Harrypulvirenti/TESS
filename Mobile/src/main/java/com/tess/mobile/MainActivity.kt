@@ -3,7 +3,6 @@ package com.tess.mobile
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.tess.core.viewmodel.TestViewModel
-import com.tess.things.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

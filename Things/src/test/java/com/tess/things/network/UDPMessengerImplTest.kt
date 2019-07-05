@@ -279,7 +279,7 @@ class UDPMessengerImplTest {
             this[1] = 0
         }
         val throwable = Throwable("message")
-        val error = NetworkError("Network Error: message", throwable)
+        val error = NetworkError("Network Errorrrr: message", throwable)
 
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.right(objByte)
         every { socket.send(any()) } throws throwable
