@@ -1,8 +1,8 @@
 ![logo](./art/tess-logo.png)
 
-\[ ⚠️ Work in progress 💻]  TESS 🌡
-======================================
-TESS
+\[ ⚠️ Work in progress 💻]
+===========================
+TESS 🌡
 ----
 Maybe is your girlfriend or just your Thermostat!
 
