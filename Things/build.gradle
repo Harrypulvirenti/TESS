@@ -28,6 +28,12 @@ android {
         warningsAsErrors true
         abortOnError true
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -41,6 +47,8 @@ dependencies {
     androidTestImplementation libraries.espresso
     androidTestImplementation libraries.runner
     testImplementation libraries.mockk
+    testImplementation libraries.kotlinTestArrow
+    testImplementation libraries.kotlinTestRunner
     testImplementation libraries.coroutineTest
 
 //    Things

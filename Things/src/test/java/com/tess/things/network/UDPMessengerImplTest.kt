@@ -1,7 +1,6 @@
 package com.tess.things.network
 
 import arrow.core.Either
-import arrow.core.orNull
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -12,13 +11,14 @@ import com.tess.core.network.parseJson
 import com.tess.things.models.MalformedIPError
 import com.tess.things.models.TimeoutError
 import com.tess.things.models.asIP
+import io.kotlintest.assertions.arrow.either.shouldBeLeft
+import io.kotlintest.assertions.arrow.either.shouldBeLeftOfType
+import io.kotlintest.assertions.arrow.either.shouldBeRight
+import io.kotlintest.shouldBe
 import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
-import junit.framework.TestCase.fail
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.net.DatagramPacket
@@ -37,7 +37,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -48,17 +48,18 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            sut.sendMessage(ip, port, obj)
+            sut.sendMessage(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
             }
@@ -70,24 +71,18 @@ class UDPMessengerImplTest {
 
         val ip = "not valid".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
 
         runBlocking {
 
-            val result = sut.sendMessage(ip, port, obj)
+            val result = sut.sendMessage(ip, sendPort, obj)
 
             verify(exactly = 0) {
                 objectParser.toJSONBytes(any<TestJsonClass>())
                 socket.send(any())
             }
 
-            result.fold(
-                {
-                    assertTrue(it is MalformedIPError)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeftOfType<MalformedIPError>()
         }
     }
 
@@ -96,26 +91,20 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val error = ParsingError("error", null)
 
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.left(error)
 
         runBlocking {
 
-            val result = sut.sendMessage(ip, port, obj)
+            val result = sut.sendMessage(ip, sendPort, obj)
 
             verify { objectParser.toJSONBytes(obj) }
 
             verify(exactly = 0) { socket.send(any()) }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -124,7 +113,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -137,28 +126,23 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendMessage(ip, port, obj)
+            val result = sut.sendMessage(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -167,7 +151,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -186,25 +170,25 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj).orNull()
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
                 socket.receive(any())
                 objectParser.parseJson(receivedString, TestJsonClass::class)
             }
 
-            assertEquals(receivedObj, result)
-
+            result.shouldBeRight(receivedObj)
         }
     }
 
@@ -213,11 +197,11 @@ class UDPMessengerImplTest {
 
         val ip = "not valid".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify(exactly = 0) {
                 objectParser.toJSONBytes(any<TestJsonClass>())
@@ -226,13 +210,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.fold(
-                {
-                    assertTrue(it is MalformedIPError)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeftOfType<MalformedIPError>()
         }
     }
 
@@ -241,14 +219,14 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val error = ParsingError("error", null)
 
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.left(error)
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify { objectParser.toJSONBytes(obj) }
 
@@ -258,13 +236,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -273,7 +245,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -286,17 +258,18 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
             }
@@ -306,13 +279,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -321,7 +288,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -332,17 +299,18 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
                 socket.receive(any())
@@ -352,13 +320,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -367,7 +329,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -381,17 +343,18 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
                 socket.receive(any())
@@ -401,13 +364,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 
@@ -416,7 +373,7 @@ class UDPMessengerImplTest {
 
         val ip = "255.255.255.255".asIP()
         val obj = TestJsonClass()
-        val port = 5
+        val sendPort = 5
         val objByte = ByteArray(3).apply {
             this[0] = 1
             this[1] = 0
@@ -436,30 +393,25 @@ class UDPMessengerImplTest {
 
         runBlocking {
 
-            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, port, obj)
+            val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
 
             verify {
                 objectParser.toJSONBytes(obj)
                 socket.send(withArg {
 
                     with(actual as DatagramPacket) {
-                        assertEquals(objByte, data)
-                        assertEquals(objByte.size, length)
-                        assertEquals(ip.value, address.hostAddress)
-                        assertEquals(port, port)
+                        data shouldBe objByte
+                        length shouldBe objByte.size
+                        length shouldBe objByte.size
+                        address.hostAddress shouldBe ip.value
+                        port shouldBe sendPort
                     }
                 })
                 socket.receive(any())
                 objectParser.parseJson(receivedString, TestJsonClass::class)
             }
 
-            result.fold(
-                {
-                    assertEquals(error, it)
-                },
-                {
-                    fail()
-                })
+            result.shouldBeLeft(error)
         }
     }
 }
