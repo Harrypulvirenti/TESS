@@ -1,3 +1,5 @@
+![logo](./art/tess-logo.png)
+
 \[ ⚠️ Work in progress 💻]  TESS 🌡
 ======================================
 TESS
