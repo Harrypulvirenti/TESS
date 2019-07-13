@@ -30,6 +30,12 @@ android {
         warningsAsErrors true
         abortOnError true
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 repositories {
     maven { url "https://kotlin.bintray.com/kotlinx" }
@@ -44,6 +50,8 @@ dependencies {
 //    Test
     testImplementation libraries.junit
     testImplementation libraries.mockk
+    testImplementation libraries.kotlinTestArrow
+    testImplementation libraries.kotlinTestRunner
 
     implementation libraries.firebaseFirestone
 

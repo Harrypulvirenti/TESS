@@ -1,11 +1,12 @@
 package com.tess.core.network
 
+import arrow.core.orNull
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
-import junit.framework.TestCase.fail
+import io.kotlintest.assertions.arrow.either.shouldBeLeft
+import io.kotlintest.assertions.arrow.either.shouldBeRight
+import io.kotlintest.shouldBe
 import org.junit.Test
 import java.util.Arrays
 
@@ -21,15 +22,7 @@ class ObjectParserImplTest {
 
         val expected = TestJsonClass("string", 1, true, 3, null)
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertEquals(expected, it)
-            }
-        )
+        actual.shouldBeRight(expected)
     }
 
     @Test
@@ -47,15 +40,7 @@ class ObjectParserImplTest {
             )
         )
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertEquals(expected, it)
-            }
-        )
+        actual.shouldBeRight(expected)
     }
 
     @Test
@@ -63,15 +48,7 @@ class ObjectParserImplTest {
         val json = ""
 
 
-        sut.parseJson<TestJsonClass>(json).fold(
-            {
-
-            },
-            {
-
-                fail()
-            }
-        )
+        sut.parseJson<TestJsonClass>(json).shouldBeLeft()
     }
 
     @Test
@@ -87,15 +64,7 @@ class ObjectParserImplTest {
 
         val expected = TestJsonClass("string", 1, true, 3, null)
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertEquals(expected, it)
-            }
-        )
+        actual.shouldBeRight(expected)
     }
 
     @Test
@@ -121,15 +90,7 @@ class ObjectParserImplTest {
             )
         )
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertEquals(expected, it)
-            }
-        )
+        actual.shouldBeRight(expected)
     }
 
     @Test
@@ -137,15 +98,7 @@ class ObjectParserImplTest {
         val json: Map<String, String> = mapOf()
 
 
-        sut.parseJson<TestJsonClass>(json).fold(
-            {
-
-            },
-            {
-
-                fail()
-            }
-        )
+        sut.parseJson<TestJsonClass>(json).shouldBeLeft()
     }
 
     @Test
@@ -156,15 +109,7 @@ class ObjectParserImplTest {
 
         val expected = "{\"string\":\"string\",\"int\":1,\"boolean\":true,\"long\":3}"
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertEquals(expected, it)
-            }
-        )
+        actual.shouldBeRight(expected)
     }
 
     @Test
@@ -175,15 +120,7 @@ class ObjectParserImplTest {
 
         val expected = "{\"string\":\"string\",\"int\":1,\"boolean\":true,\"long\":3}".toByteArray()
 
-        actual.fold(
-            {
-                fail()
-            },
-            {
-
-                assertTrue(Arrays.equals(expected, it))
-            }
-        )
+        Arrays.equals(expected, actual.orNull()) shouldBe true
     }
 }
 

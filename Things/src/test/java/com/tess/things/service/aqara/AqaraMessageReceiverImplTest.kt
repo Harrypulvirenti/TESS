@@ -3,18 +3,18 @@ package com.tess.things.service.aqara
 import arrow.core.Either.Companion.left
 import arrow.core.Either.Companion.right
 import com.tess.architecture.sdk.utils.SmartLogger
+import com.tess.core.models.ParsingError
+import com.tess.core.network.ObjectParser
+import com.tess.core.network.parseJson
 import com.tess.things.models.aqara.AqaraMessageData
 import com.tess.things.models.aqara.AqaraNetMessage
 import com.tess.things.network.MulticastReceiver
 import com.tess.things.service.AqaraMessageReceiverImpl
-import com.tess.core.models.ParsingError
-import com.tess.core.network.ObjectParser
-import com.tess.core.network.parseJson
+import io.kotlintest.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.verify
-import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -57,7 +57,7 @@ class AqaraMessageReceiverImplTest {
                 objectParser.parseJson<AqaraMessageData>(jsonData)
             }
 
-            assertEquals(message, channel.receiveOrNull())
+            channel.receiveOrNull() shouldBe message
         }
     }
 
@@ -116,7 +116,7 @@ class AqaraMessageReceiverImplTest {
                 )
             }
 
-            assertEquals(message, channel.receiveOrNull())
+            channel.receiveOrNull() shouldBe message
         }
     }
 }

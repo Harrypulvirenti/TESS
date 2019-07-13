@@ -8,7 +8,7 @@
 
 Maybe is your girlfriend or just your Thermostat!
 
-[![Build Status](https://app.bitrise.io/app/1c5df9218034c99c/status.svg?token=ma7caOlYJCmGpv3BreCUoQ)](https://app.bitrise.io/app/1c5df9218034c99c)
+[![Build Status](https://app.bitrise.io/app/1c5df9218034c99c/status.svg?token=ma7caOlYJCmGpv3BreCUoQ&branch=master)](https://app.bitrise.io/app/1c5df9218034c99c)
 
 Overview
 --------
@@ -32,6 +32,7 @@ Some examples:
 *  [Room](https://developer.android.com/topic/libraries/architecture/room) (Database)
 *  [Firebase Firestone](https://firebase.google.com/products/firestore/) (Remote Database)
 *  [Mockk](https://mockk.io/) (Mocking Library)
+*  [KotlinTest](https://github.com/kotlintest/kotlintest) (Test Framework)
 
 Project Status Backlog
 ----------------------

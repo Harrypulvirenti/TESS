@@ -7,6 +7,7 @@ ext.versions = [
         runner                   : '1.2.0',
         junit                    : '1.1.1',
         mockk                    : '1.9.3',
+        kotlinTest               : '3.3.3',
         robolectric              : '4.2',
         firebaseFirestone        : '19.0.2',
         jackson                  : '2.9.9',
@@ -21,6 +22,8 @@ ext.libraries = [
         espresso                : "androidx.test.espresso:espresso-core:$versions.espresso",
         runner                  : "androidx.test:runner:$versions.runner",
         mockk                   : "io.mockk:mockk:$versions.mockk",
+        kotlinTestRunner        : "io.kotlintest:kotlintest-runner-junit5:$versions.kotlinTest",
+        kotlinTestArrow         : "io.kotlintest:kotlintest-assertions-arrow:$versions.kotlinTest",
         robolectric             : "org.robolectric:robolectric:$versions.robolectric",
 
         //Support libs

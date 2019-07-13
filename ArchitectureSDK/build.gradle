@@ -62,7 +62,7 @@ dependencies {
     api "org.koin:koin-androidx-viewmodel:$koin_version"
 
 //    Firebase
-    api "com.google.firebase:firebase-core:17.0.0"
+    api "com.google.firebase:firebase-core:17.0.1"
     api "com.google.firebase:firebase-common:18.0.0"
 
     //    Crashlytics
