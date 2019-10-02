@@ -12,7 +12,7 @@ Maybe is your girlfriend or just your Thermostat!
 
 Overview
 --------
-Thermal Economy Smart System, these words enclose the main goals of this project.
+Thermal Energy Saving System, these words enclose the main goals of this project.
 Started as a game and some experimentation it has become a real side project that trying to provide a cheap, easy and smart thermal system for every user who wants to try it out for free.
 
 The entire project is designed to work on Android Things, used to collect and organize all sensor data and send it to Firebase.
