@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import io.kotlintest.assertions.arrow.either.shouldBeLeft
 import io.kotlintest.assertions.arrow.either.shouldBeRight
 import io.kotlintest.shouldBe
-import org.junit.Test
 import java.util.Arrays
+import org.junit.Test
 
 class ObjectParserImplTest {
 
@@ -46,7 +46,6 @@ class ObjectParserImplTest {
     @Test
     fun `Should fail parsing string without crash`() {
         val json = ""
-
 
         sut.parseJson<TestJsonClass>(json).shouldBeLeft()
     }
@@ -96,7 +95,6 @@ class ObjectParserImplTest {
     @Test
     fun `Should fail parsing map without crash`() {
         val json: Map<String, String> = mapOf()
-
 
         sut.parseJson<TestJsonClass>(json).shouldBeLeft()
     }

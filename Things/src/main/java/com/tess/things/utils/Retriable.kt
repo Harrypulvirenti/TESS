@@ -4,12 +4,12 @@ import arrow.core.Either
 import arrow.core.flatMap
 import arrow.core.left
 import arrow.core.right
-import com.tess.things.models.RetryError
 import com.tess.core.models.GenericError
+import com.tess.things.models.RetryError
+import kotlin.random.Random
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
 private const val RETRY_DELAY = 1500L
 private const val RETRY_COUNT = 3

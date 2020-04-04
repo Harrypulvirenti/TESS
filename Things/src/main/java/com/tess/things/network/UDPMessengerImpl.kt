@@ -11,14 +11,14 @@ import com.tess.core.models.NetworkError
 import com.tess.core.network.ObjectParser
 import com.tess.things.models.IP
 import com.tess.things.models.TimeoutError
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 import kotlin.reflect.KClass
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 private const val TIMEOUT = 2000
 private const val BUFFER_SIZE = 5000
@@ -85,7 +85,6 @@ class UDPMessengerImpl(
                         socket.receive(receiver)
                         receiver.data.trimToString()
                     }.toOption().toEither { TimeoutError("Receiver Timeout Error") }
-
                 }.toEither { NetworkError("Network Error: " + it.message, it) }
             }.flatten()
         }

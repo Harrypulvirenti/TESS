@@ -19,11 +19,11 @@ import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import kotlin.reflect.KClass
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 
 class UDPMessengerImplTest {
 
@@ -44,7 +44,6 @@ class UDPMessengerImplTest {
         }
 
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.right(objByte)
-
 
         runBlocking {
 
@@ -166,7 +165,6 @@ class UDPMessengerImplTest {
         }
 
         every { objectParser.parseJson<TestJsonClass>(any<String>()) } returns Either.right(receivedObj)
-
 
         runBlocking {
 
@@ -340,7 +338,6 @@ class UDPMessengerImplTest {
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.right(objByte)
         every { socket.receive(any()) } throws throwable
 
-
         runBlocking {
 
             val result = sut.sendAndReceiveMessage<TestJsonClass, TestJsonClass>(ip, sendPort, obj)
@@ -383,13 +380,11 @@ class UDPMessengerImplTest {
 
         val error = ParsingError("error", null)
 
-
         every { objectParser.toJSONBytes(any<TestJsonClass>()) } returns Either.right(objByte)
         every { socket.receive(capture(bufferSlot)) } answers {
             bufferSlot.captured.data = receivedString.toByteArray()
         }
         every { objectParser.parseJson<TestJsonClass>(any<String>()) } returns Either.left(error)
-
 
         runBlocking {
 

@@ -3,11 +3,11 @@ package com.tess.things.network
 import com.tess.architecture.sdk.extensions.trimToString
 import com.tess.core.extensions.consume
 import com.tess.things.models.IP
+import java.net.DatagramPacket
+import java.net.MulticastSocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
-import java.net.DatagramPacket
-import java.net.MulticastSocket
 
 private const val BUFFER_SIZE = 2500
 

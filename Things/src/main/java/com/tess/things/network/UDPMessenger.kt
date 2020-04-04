@@ -1,8 +1,8 @@
 package com.tess.things.network
 
 import arrow.core.Either
-import com.tess.things.models.IP
 import com.tess.core.models.GenericError
+import com.tess.things.models.IP
 import kotlin.reflect.KClass
 
 interface UDPMessenger {
