@@ -1,21 +1,72 @@
 ext.versions = [
-        constraintLayout         : '2.0.0-beta1',
+        coroutine                : '1.2.1',
+        arrow                    : '0.9.0',
+        constraintLayout         : '2.0.0-beta4',
         appCompat                : '1.1.0-alpha05',
-        room                     : '2.1.0-rc01',
         things                   : '1.0',
+        viewModel                : '2.2.0-alpha02',
+        koin                     : '2.0.1',
+        firebaseCore             : '17.0.1',
+        firebaseCommon           : '18.0.0',
+        firebaseCrashlytics      : '2.10.1',
+        firebaseFirestone        : '19.0.2',
+        room                     : '2.1.0-rc01',
+        jackson                  : '2.9.9',
+        junit                    : '1.1.1',
         espresso                 : '3.2.0',
         runner                   : '1.2.0',
-        junit                    : '1.1.1',
         mockk                    : '1.9.3',
         kotlinTest               : '3.3.3',
         robolectric              : '4.2',
-        firebaseFirestone        : '19.0.2',
-        jackson                  : '2.9.9',
-        koin                     : '2.0.0-rc-3',
-        coroutine                : '1.2.1'
+        logger                   : '2.2.0'
 ]
 
 ext.libraries = [
+
+//        Coroutine
+        coroutineCore           : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine",
+        coroutineAndroid        : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine",
+        coroutineTest           : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine",
+
+
+//        Arrow
+        arrowCoreData           : "io.arrow-kt:arrow-core-data:$versions.arrow",
+        arrowCoreExt            : "io.arrow-kt:arrow-core-extensions:$versions.arrow",
+
+
+//        Support libs
+        constraintLayout        : "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
+        appCompat               : "androidx.appcompat:appcompat:$versions.appCompat",
+        things                  : "com.google.android.things:androidthings:$versions.things",
+
+//        Lifecycle
+        viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel",
+        viewModelCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.viewModel",
+
+
+//         Koin
+        koinAndroid             : "org.koin:koin-android:$versions.koin",
+        koinViewModel           : "org.koin:koin-androidx-viewmodel:$versions.koin",
+        koinTesting             : "org.koin:koin-test:$versions.koin",
+
+
+//        Firebase
+        firebaseCore            : "com.google.firebase:firebase-core:$versions.firebaseCore",
+        firebaseCommon          : "com.google.firebase:firebase-common:$versions.firebaseCommon",
+        firebaseCrashlytics     : "com.crashlytics.sdk.android:crashlytics:$versions.firebaseCrashlytics",
+        firebaseFirestone       : "com.google.firebase:firebase-firestore:$versions.firebaseFirestone",
+
+
+//        Room
+        room                    : "androidx.room:room-runtime:$versions.room",
+        roomCompiler            : "androidx.room:room-compiler:$versions.room",
+        roomKTX                 : "androidx.room:room-ktx:$versions.room",
+
+
+//         Jackson
+        jackson                 : "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
+        jacksonAnnotation       : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
+
 
 //        Tests
         junit                   : "androidx.test.ext:junit-ktx:$versions.junit",
@@ -25,28 +76,5 @@ ext.libraries = [
         kotlinTestRunner        : "io.kotlintest:kotlintest-runner-junit5:$versions.kotlinTest",
         kotlinTestArrow         : "io.kotlintest:kotlintest-assertions-arrow:$versions.kotlinTest",
         robolectric             : "org.robolectric:robolectric:$versions.robolectric",
-
-        //Support libs
-        constraintLayout        : "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
-        appCompat               : "androidx.appcompat:appcompat:$versions.appCompat",
-        things                  : "com.google.android.things:androidthings:$versions.things",
-
-//        Room
-        room                    : "androidx.room:room-runtime:$versions.room",
-        roomCompiler            : "androidx.room:room-compiler:$versions.room",
-        roomKTX                 : "androidx.room:room-ktx:$versions.room",
-
-
-//         Firebase
-        firebaseFirestone       : "com.google.firebase:firebase-firestore:$versions.firebaseFirestone",
-
-//         Jackson
-        jackson                 : "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
-        jacksonAnnotation       : "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
-
-//         Koin
-        koinTesting             : "org.koin:koin-test:$versions.koin",
-
-//        Coroutine
-        coroutineTest           : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine"
+        logger                  : "com.orhanobut:logger:$versions.logger"
 ]
