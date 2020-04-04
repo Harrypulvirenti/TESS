@@ -56,7 +56,10 @@ dependencies {
 
 //    Koin
     api libraries.koinAndroid
+    api libraries.koinScope
     api libraries.koinViewModel
+    api libraries.koinFragment
+    api libraries.koinExperimental
 
 //    Firebase
     api libraries.firebaseCore

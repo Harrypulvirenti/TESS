@@ -5,7 +5,7 @@ ext.versions = [
         appCompat                : '1.1.0-alpha05',
         things                   : '1.0',
         viewModel                : '2.2.0-alpha02',
-        koin                     : '2.0.1',
+        koin                     : '2.1.5',
         firebaseCore             : '17.0.1',
         firebaseCommon           : '18.0.0',
         firebaseCrashlytics      : '2.10.1',
@@ -43,10 +43,12 @@ ext.libraries = [
         viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel",
         viewModelCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.viewModel",
 
-
 //         Koin
         koinAndroid             : "org.koin:koin-android:$versions.koin",
+        koinScope               : "org.koin:koin-androidx-scope:$versions.koin",
         koinViewModel           : "org.koin:koin-androidx-viewmodel:$versions.koin",
+        koinFragment            : "org.koin:koin-androidx-fragment:$versions.koin",
+        koinExperimental        : "org.koin:koin-androidx-ext:$versions.koin",
         koinTesting             : "org.koin:koin-test:$versions.koin",
 
 
