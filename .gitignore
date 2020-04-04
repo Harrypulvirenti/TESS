@@ -83,3 +83,6 @@ fastlane/readme.md
 /.idea/inspectionProfiles/ktlint.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/encodings.xml
+
+# KotlinTest
+*/.kotlintest
