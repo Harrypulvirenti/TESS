@@ -1,1 +1,1 @@
-include ':Mobile', ':Things', ':ArchitectureSDK', ':Core'
+include ':mobile-app', ':things-app', ':architecture-sdk', ':core'

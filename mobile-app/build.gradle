@@ -1,21 +1,18 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: "kotlin-android-extensions"
-apply plugin: "kotlin-kapt"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion compileSdk
     defaultConfig {
-
+        applicationId "com.tess.mobile"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode versionCode
         versionName versionName
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -30,36 +27,22 @@ android {
         warningsAsErrors true
         abortOnError true
     }
-
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
-}
-repositories {
-    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    api project(':ArchitectureSDK')
+    implementation project(':core')
 
 //    Test
     testImplementation libraries.junit
-    testImplementation libraries.mockk
-    testImplementation libraries.kotlinTestArrow
-    testImplementation libraries.kotlinTestRunner
+    androidTestImplementation libraries.espresso
+    androidTestImplementation libraries.runner
 
-    implementation libraries.firebaseFirestone
-
-//    Jackson
-    implementation libraries.jackson
-    implementation libraries.jacksonAnnotation
+//    Support
+    implementation libraries.appCompat
+    implementation libraries.constraintLayout
 
 }
-repositories {
-    mavenCentral()
-}
+apply plugin: 'com.google.gms.google-services'
