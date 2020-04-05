@@ -5,7 +5,7 @@
         id="ObsoleteLintCustomCheck"
         message="Lint found an issue registry (`androidx.appcompat.AppCompatIssueRegistry`) which requires a newer API level. That means that the custom lint checks are intended for a newer lint version; please upgrade">
         <location
-            file="../../../../.gradle/caches/transforms-2/files-2.1/c4da5ab66f014a4582ef3f90e572cd47/appcompat-1.2.0-beta01/jars/lint.jar"/>
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/c4da5ab66f014a4582ef3f90e572cd47/appcompat-1.2.0-beta01/jars/lint.jar"/>
     </issue>
 
 </issues>
