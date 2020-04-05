@@ -1,3 +1,3 @@
-Things App Module
+Shared Interfaces Module
 ===========================
 ### TODO

@@ -1,3 +1,3 @@
-Things App Module
+Extensions Kotlin Module
 ===========================
 ### TODO

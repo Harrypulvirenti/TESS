@@ -1,3 +1,3 @@
-Things App Module
+Extensions Android Module
 ===========================
 ### TODO
