@@ -43,4 +43,7 @@ dependencies {
     //    Support
     implementation libraries.appCompat
     implementation libraries.constraintLayout
+
+//    Firebase
+    implementation libraries.firebaseAuth
 }

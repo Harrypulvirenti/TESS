@@ -10,6 +10,7 @@ ext.versions = [
         firebaseCommon           : '18.0.0',
         firebaseCrashlytics      : '2.10.1',
         firebaseFirestone        : '19.0.2',
+        firebaseAuth             : '19.3.0',
         room                     : '2.2.5',
         jackson                  : '2.9.9',
         junit                    : '1.1.1',
@@ -57,6 +58,7 @@ ext.libraries = [
         firebaseCommon          : "com.google.firebase:firebase-common:$versions.firebaseCommon",
         firebaseCrashlytics     : "com.crashlytics.sdk.android:crashlytics:$versions.firebaseCrashlytics",
         firebaseFirestone       : "com.google.firebase:firebase-firestore:$versions.firebaseFirestone",
+        firebaseAuth            : "com.google.firebase:firebase-auth:$versions.firebaseAuth",
 
 
 //        Room

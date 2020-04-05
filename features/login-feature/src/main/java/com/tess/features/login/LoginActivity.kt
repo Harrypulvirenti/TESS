@@ -1,13 +1,15 @@
 package com.tess.features.login
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.tess.architecture.sdk.base.BaseActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-    }
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, LoginHomeFragment::class.java, null, null)
+            .commit()
+    }
 }
