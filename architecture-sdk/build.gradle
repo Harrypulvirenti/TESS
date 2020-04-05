@@ -4,13 +4,14 @@ apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion compileSdk
 
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versionCode
+        versionName versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -35,6 +36,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api project(':shared-interfaces')
 
     testImplementation libraries.junit
 

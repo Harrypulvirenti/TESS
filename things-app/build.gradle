@@ -6,6 +6,7 @@ apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion compileSdk
+
     defaultConfig {
         applicationId "com.tess.things"
         minSdkVersion minSdk

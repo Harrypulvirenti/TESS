@@ -3,7 +3,7 @@ package com.tess.things.service
 import arrow.core.flatMap
 import arrow.core.left
 import arrow.core.orNull
-import com.tess.architecture.sdk.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.ApplicationStarter
 import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.architecture.sdk.utils.SmartLogger
 import com.tess.core.network.ObjectParser

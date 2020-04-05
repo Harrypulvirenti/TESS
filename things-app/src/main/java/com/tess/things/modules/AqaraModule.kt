@@ -1,6 +1,6 @@
 package com.tess.things.modules
 
-import com.tess.architecture.sdk.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.ApplicationStarter
 import com.tess.things.network.MulticastReceiver
 import com.tess.things.network.MulticastReceiverImpl
 import com.tess.things.network.UDPMessenger

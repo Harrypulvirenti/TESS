@@ -1,23 +1,25 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion compileSdk
 
     defaultConfig {
-        applicationId "com.tess.mobile"
+
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode versionCode
         versionName versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -28,22 +30,15 @@ android {
         warningsAsErrors true
         abortOnError true
     }
+
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation project(':core')
-
-//    Test
-    testImplementation libraries.junit
-    androidTestImplementation libraries.espresso
-    androidTestImplementation libraries.runner
-
-//    Support
-    implementation libraries.appCompat
-    implementation libraries.constraintLayout
-
+//    Coroutine
+    implementation libraries.coroutineCore
+    implementation libraries.coroutineAndroid
 }
-apply plugin: 'com.google.gms.google-services'

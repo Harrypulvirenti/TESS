@@ -2,7 +2,7 @@ package com.tess.things.service
 
 import com.tess.architecture.sdk.extensions.isNotNullOrEmpty
 import com.tess.architecture.sdk.extensions.takeIfOrElse
-import com.tess.architecture.sdk.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.ApplicationStarter
 import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.architecture.sdk.utils.SmartLogger
 import com.tess.architecture.sdk.utils.timestamp

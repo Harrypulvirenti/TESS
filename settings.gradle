@@ -1,1 +1,2 @@
 include ':mobile-app', ':things-app', ':architecture-sdk', ':core'
+include ':shared-interfaces'

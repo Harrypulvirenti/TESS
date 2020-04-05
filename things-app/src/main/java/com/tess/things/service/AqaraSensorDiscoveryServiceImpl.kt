@@ -6,7 +6,7 @@ import arrow.core.getOrElse
 import arrow.core.left
 import arrow.core.orNull
 import com.tess.architecture.sdk.extensions.onNotNull
-import com.tess.architecture.sdk.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.ApplicationStarter
 import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.core.models.GenericError
 import com.tess.core.network.ObjectParser

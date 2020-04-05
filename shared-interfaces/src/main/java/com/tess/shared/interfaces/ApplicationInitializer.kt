@@ -1,4 +1,4 @@
-package com.tess.architecture.sdk.interfaces
+package com.tess.shared.interfaces
 
 import android.content.Context
 
