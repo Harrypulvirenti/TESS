@@ -3,11 +3,11 @@ package com.tess.things.service
 import arrow.core.flatMap
 import arrow.core.left
 import arrow.core.orNull
-import com.tess.shared.interfaces.ApplicationStarter
-import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.architecture.sdk.utils.SmartLogger
 import com.tess.core.network.ObjectParser
 import com.tess.core.network.parseJson
+import com.tess.shared.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.CoroutineHandler
 import com.tess.things.interfaces.DataSubscriber
 import com.tess.things.interfaces.DataUpdater
 import com.tess.things.models.AqaraSensor

@@ -5,10 +5,10 @@ import arrow.core.Try
 import arrow.core.extensions.either.monad.flatten
 import arrow.core.flatMap
 import arrow.core.toOption
-import com.tess.architecture.sdk.extensions.trimToString
 import com.tess.core.models.GenericError
 import com.tess.core.models.NetworkError
 import com.tess.core.network.ObjectParser
+import com.tess.extensions.kotlin.trimToString
 import com.tess.things.models.IP
 import com.tess.things.models.TimeoutError
 import java.net.DatagramPacket

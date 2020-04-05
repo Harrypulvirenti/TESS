@@ -1,9 +1,9 @@
 package com.tess.things.service
 
-import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.core.extensions.consume
 import com.tess.core.network.ObjectParser
 import com.tess.core.network.parseJson
+import com.tess.shared.interfaces.CoroutineHandler
 import com.tess.things.models.aqara.AqaraMessageData
 import com.tess.things.models.aqara.AqaraNetMessage
 import com.tess.things.models.asIP

@@ -1,4 +1,4 @@
-package com.tess.architecture.sdk.interfaces
+package com.tess.shared.interfaces
 
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope

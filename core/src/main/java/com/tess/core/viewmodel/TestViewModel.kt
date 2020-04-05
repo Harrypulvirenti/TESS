@@ -1,9 +1,9 @@
 package com.tess.core.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.tess.architecture.sdk.extensions.launch
 import com.tess.architecture.sdk.utils.SmartLogger
 import com.tess.core.service.SettingsService
+import com.tess.extensions.android.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

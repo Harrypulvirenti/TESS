@@ -1,4 +1,4 @@
-package com.tess.architecture.sdk.extensions
+package com.tess.extensions.kotlin
 
 fun String?.isNotNullOrEmpty() = !this.isNullOrEmpty()
 

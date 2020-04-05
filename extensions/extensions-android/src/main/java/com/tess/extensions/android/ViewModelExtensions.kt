@@ -1,4 +1,4 @@
-package com.tess.architecture.sdk.extensions
+package com.tess.extensions.android
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

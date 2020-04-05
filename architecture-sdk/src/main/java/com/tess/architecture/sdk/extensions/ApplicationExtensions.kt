@@ -1,10 +1,10 @@
 package com.tess.architecture.sdk.extensions
 
 import android.app.Application
+import com.tess.architecture.sdk.modules.sdkModule
 import com.tess.shared.interfaces.ApplicationBundle
 import com.tess.shared.interfaces.ApplicationInitializer
 import com.tess.shared.interfaces.ApplicationStarter
-import com.tess.architecture.sdk.modules.sdkModule
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

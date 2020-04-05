@@ -1,2 +1,7 @@
-include ':mobile-app', ':things-app', ':architecture-sdk', ':core'
+include ':mobile-app'
+include ':things-app'
+include ':architecture-sdk'
+include ':core'
 include ':shared-interfaces'
+include ':extensions:extensions-android'
+include ':extensions:extensions-kotlin'

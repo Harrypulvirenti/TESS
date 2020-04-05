@@ -1,6 +1,6 @@
 package com.tess.things.models
 
-import com.tess.architecture.sdk.extensions.or
+import com.tess.extensions.kotlin.or
 
 private const val TEMPERATURE_DEFAULT_VALUE = "--"
 

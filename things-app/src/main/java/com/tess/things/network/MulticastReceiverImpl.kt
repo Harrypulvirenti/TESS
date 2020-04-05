@@ -1,7 +1,7 @@
 package com.tess.things.network
 
-import com.tess.architecture.sdk.extensions.trimToString
 import com.tess.core.extensions.consume
+import com.tess.extensions.kotlin.trimToString
 import com.tess.things.models.IP
 import java.net.DatagramPacket
 import java.net.MulticastSocket

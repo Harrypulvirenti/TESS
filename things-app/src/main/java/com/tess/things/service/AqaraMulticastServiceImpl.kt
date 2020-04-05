@@ -1,11 +1,11 @@
 package com.tess.things.service
 
-import com.tess.architecture.sdk.extensions.isNotNullOrEmpty
-import com.tess.architecture.sdk.extensions.takeIfOrElse
-import com.tess.shared.interfaces.ApplicationStarter
-import com.tess.architecture.sdk.interfaces.CoroutineHandler
 import com.tess.architecture.sdk.utils.SmartLogger
 import com.tess.architecture.sdk.utils.timestamp
+import com.tess.extensions.kotlin.isNotNullOrEmpty
+import com.tess.extensions.kotlin.takeIfOrElse
+import com.tess.shared.interfaces.ApplicationStarter
+import com.tess.shared.interfaces.CoroutineHandler
 import com.tess.things.database.repository.AqaraMessageRepository
 import com.tess.things.interfaces.DataUpdater
 import com.tess.things.models.AqaraMessage
@@ -29,27 +29,29 @@ class AqaraMulticastServiceImpl(
     private val ipUpdater: DataUpdater<IP>
 ) : AqaraMulticastService, CoroutineHandler, ApplicationStarter {
 
-    private val messageReceiverChannel: ReceiveChannel<AqaraNetMessage> = receiver.subscribeMessageReceiver()
+    private val messageReceiverChannel: ReceiveChannel<AqaraNetMessage> =
+        receiver.subscribeMessageReceiver()
 
-    private val messageHandlerActions: Map<(AqaraMessage) -> Boolean, (AqaraMessage) -> Unit> = mapOf(
-        { message: AqaraMessage -> message.commandName == REPORT_CMD } to
-            { message: AqaraMessage ->
-                launch(Default) {
-                    temperatureUpdater.notifyDataUpdate(message.temperature.asTemperature())
-                }
-                Unit
-            },
-        { message: AqaraMessage -> message.ip.isNotNullOrEmpty() } to
-            { message: AqaraMessage ->
-                launch(Default) {
-                    if (currentIp != message.ip) {
-                        currentIp = message.ip
-                        ipUpdater.notifyDataUpdate(message.ip.asIP())
+    private val messageHandlerActions: Map<(AqaraMessage) -> Boolean, (AqaraMessage) -> Unit> =
+        mapOf(
+            { message: AqaraMessage -> message.commandName == REPORT_CMD } to
+                { message: AqaraMessage ->
+                    launch(Default) {
+                        temperatureUpdater.notifyDataUpdate(message.temperature.asTemperature())
                     }
+                    Unit
+                },
+            { message: AqaraMessage -> message.ip.isNotNullOrEmpty() } to
+                { message: AqaraMessage ->
+                    launch(Default) {
+                        if (currentIp != message.ip) {
+                            currentIp = message.ip
+                            ipUpdater.notifyDataUpdate(message.ip.asIP())
+                        }
+                    }
+                    Unit
                 }
-                Unit
-            }
-    )
+        )
 
     override val job = Job()
 

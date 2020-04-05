@@ -1,8 +1,8 @@
 package com.tess.things.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.tess.architecture.sdk.extensions.launch
 import com.tess.architecture.sdk.utils.SmartLogger
+import com.tess.extensions.android.launch
 import com.tess.things.interfaces.DataSubscriber
 import com.tess.things.models.Temperature
 import kotlinx.coroutines.Dispatchers
