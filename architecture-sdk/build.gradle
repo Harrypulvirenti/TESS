@@ -51,8 +51,11 @@ dependencies {
     api libraries.arrowCoreExt
 
 //    ViewModel
-    api libraries.viewModel
-    kapt libraries.viewModelCompiler
+    api libraries.lifecycleViewModel
+    api libraries.lifecycleLiveData
+    api libraries.lifecycleRuntime
+    api libraries.lifecycleSavedState
+    kapt libraries.lifecycleCompiler
 
 
 //    Coroutine

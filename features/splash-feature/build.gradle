@@ -6,13 +6,11 @@ android {
     compileSdkVersion compileSdk
 
     defaultConfig {
-
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode versionCode
         versionName versionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -21,7 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         disable 'InvalidPackage'
         baseline file("lint-errors.xml")
@@ -30,18 +27,21 @@ android {
         abortOnError true
     }
 
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    //    Android
-    implementation libraries.appCompat
-    implementation libraries.lifecycleViewModel
+    implementation project(':architecture-sdk')
+    implementation project(':features:login-feature')
 
-    //    Coroutine
-    implementation libraries.coroutineCore
-    implementation libraries.coroutineAndroid
+    //    Test
+    testImplementation libraries.junit
+    androidTestImplementation libraries.espresso
+    androidTestImplementation libraries.runner
+
+    //    Support
+    implementation libraries.appCompat
+    implementation libraries.constraintLayout
 }

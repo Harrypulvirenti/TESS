@@ -4,7 +4,8 @@ ext.versions = [
         constraintLayout         : '2.0.0-beta4',
         appCompat                : '1.2.0-beta01',
         things                   : '1.0',
-        viewModel                : '2.3.0-alpha01',
+        lifecycle                : '2.3.0-alpha01',
+        lifecycleTest            : '2.1.0',
         koin                     : '2.1.5',
         firebaseCore             : '17.0.1',
         firebaseCommon           : '18.0.0',
@@ -40,8 +41,12 @@ ext.libraries = [
         things                  : "com.google.android.things:androidthings:$versions.things",
 
 //        Lifecycle
-        viewModel               : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel",
-        viewModelCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.viewModel",
+        lifecycleViewModel      : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle",
+        lifecycleLiveData       : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle",
+        lifecycleRuntime        : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle",
+        lifecycleSavedState     : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle",
+        lifecycleCompiler       : "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle",
+        lifecycleTest           : "ndroidx.arch.core:core-testing:$versions.lifecycleTest",
 
 //         Koin
         koinAndroid             : "org.koin:koin-android:$versions.koin",

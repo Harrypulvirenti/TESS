@@ -35,7 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation project(':core')
-    implementation project(':features:login-feature')
+    implementation project(':features:splash-feature')
 
 //    Test
     testImplementation libraries.junit
