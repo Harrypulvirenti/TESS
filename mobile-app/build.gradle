@@ -36,6 +36,7 @@ dependencies {
 
     implementation project(':core')
     implementation project(':features:splash-feature')
+    implementation project(':features:login-feature')
 
 //    Test
     testImplementation libraries.junit
