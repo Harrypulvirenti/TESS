@@ -1,13 +1,13 @@
 package com.tess.mobile
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.tess.core.viewmodel.TestViewModel
-import com.tess.features.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@SuppressLint("Registered")
 class MainActivity : AppCompatActivity() {
 
 //    private var state: Boolean = false
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             testViewModel.getData()
         }
 
-        startActivity(Intent(this, LoginActivity::class.java))
 
         finish()
 
