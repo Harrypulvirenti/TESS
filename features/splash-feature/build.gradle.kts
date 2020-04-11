@@ -1,3 +1,4 @@
+import extensions.applyDefault
 import extensions.implementationProject
 
 plugins {
@@ -7,33 +8,7 @@ plugins {
 }
 
 android {
-
-    compileSdkVersion(AndroidSdk.compile)
-
-    defaultConfig {
-
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
-        versionCode = AndroidSdk.appVersionCode
-        versionName = AndroidSdk.appVersionName
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-    }
-
-    lintOptions {
-        disable("InvalidPackage")
-        baseline(file("lint-errors.xml"))
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
-        isAbortOnError = true
-    }
+    applyDefault()
 }
 
 dependencies {

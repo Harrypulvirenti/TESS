@@ -1,5 +1,4 @@
-
-object AndroidSdk {
+internal object AndroidSdk {
     const val min = 24
     const val compile = 29
     const val target = compile

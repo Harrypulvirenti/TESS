@@ -1,5 +1,5 @@
 import Modules.core
-import com.android.build.gradle.internal.dsl.TestOptions.UnitTestOptions
+import extensions.applyDefault
 import extensions.implementationProject
 
 plugins {
@@ -11,44 +11,7 @@ plugins {
 }
 
 android {
-
-    compileSdkVersion(AndroidSdk.compile)
-
-    defaultConfig {
-
-        applicationId = "com.tess.things"
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
-        versionCode = AndroidSdk.appVersionCode
-        versionName = AndroidSdk.appVersionName
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-    }
-
-    lintOptions {
-        disable("InvalidPackage")
-        baseline(file("lint-errors.xml"))
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
-        isAbortOnError = true
-    }
-
-    testOptions {
-        unitTests(delegateClosureOf<UnitTestOptions> {
-            all(
-                KotlinClosure1<Any, Test>({
-                    (this as Test).apply { useJUnit() }
-                }, this)
-            )
-        })
-    }
+    applyDefault(ApplicationId.things)
 }
 
 dependencies {
