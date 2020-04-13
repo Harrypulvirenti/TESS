@@ -1,67 +1,58 @@
 package extensions
 
 import AndroidSdk
+import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project
 
 fun Project.applyAndroidDefault(appId: String? = null) {
 
-    applyBuildDefaultConfig(appId)
-    applyBuildTypes()
-    applyLint()
-    applyTestOptions()
+    android {
+        applyBuildDefaultConfig(appId)
+        applyBuildTypes()
+        applyLint(this@applyAndroidDefault)
+        applyTestOptions()
+    }
 }
 
-fun Project.applyBuildDefaultConfig(appId: String? = null) {
+private fun BaseExtension.applyBuildDefaultConfig(appId: String? = null) {
+    compileSdkVersion(AndroidSdk.compile)
 
-    android {
-        compileSdkVersion(AndroidSdk.compile)
+    defaultConfig {
 
-        defaultConfig {
+        appId?.let { applicationId = appId }
 
-            appId?.let { applicationId = appId }
+        minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
+        versionCode = AndroidSdk.appVersionCode
+        versionName = AndroidSdk.appVersionName
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
-            minSdkVersion(AndroidSdk.min)
-            targetSdkVersion(AndroidSdk.target)
-            versionCode = AndroidSdk.appVersionCode
-            versionName = AndroidSdk.appVersionName
-            testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
 
+private fun BaseExtension.applyBuildTypes() {
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
 }
 
-fun Project.applyBuildTypes() {
-
-    android {
-        buildTypes {
-            release {
-                isMinifyEnabled = false
-                proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            }
-        }
+private fun BaseExtension.applyLint(project: Project) {
+    lintOptions {
+        disable("InvalidPackage")
+        baseline(project.file("lint-errors.xml"))
+        isCheckAllWarnings = true
+        isWarningsAsErrors = true
+        isAbortOnError = true
     }
 }
 
-fun Project.applyLint() {
-
-    android {
-        lintOptions {
-            disable("InvalidPackage")
-            baseline(file("lint-errors.xml"))
-            isCheckAllWarnings = true
-            isWarningsAsErrors = true
-            isAbortOnError = true
-        }
-    }
-}
-
-fun Project.applyTestOptions() {
-
-    android {
-        testOptions {
-            unitTests.all {
-                useJUnit()
-            }
+private fun BaseExtension.applyTestOptions() {
+    testOptions {
+        unitTests.all {
+            useJUnit()
         }
     }
 }
