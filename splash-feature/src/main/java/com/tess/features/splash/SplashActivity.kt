@@ -21,7 +21,7 @@ internal class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
     }
 
-    private fun navigateToLogin(){
+    private fun navigateToLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
