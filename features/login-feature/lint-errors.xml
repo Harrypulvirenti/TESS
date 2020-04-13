@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint 3.6.2" client="gradle" variant="debug" version="3.6.2">
-
-    <issue
-        id="ObsoleteLintCustomCheck"
-        message="Lint found an issue registry (`androidx.appcompat.AppCompatIssueRegistry`) which requires a newer API level. That means that the custom lint checks are intended for a newer lint version; please upgrade">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/c4da5ab66f014a4582ef3f90e572cd47/appcompat-1.2.0-beta01/jars/lint.jar"/>
-    </issue>
+<issues format="5" by="lint 4.0.0-beta04" client="gradle" variant="debug" version="4.0.0-beta04">
 
     <issue
         id="HardcodedText"
