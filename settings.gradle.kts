@@ -1,0 +1,11 @@
+include(
+    ":mobile-app",
+    ":things-app",
+    ":shared-interfaces",
+    ":architecture-sdk",
+    ":core",
+    ":extensions:extensions-android",
+    ":extensions:extensions-kotlin",
+    ":features:splash-feature",
+    ":features:login-feature"
+)

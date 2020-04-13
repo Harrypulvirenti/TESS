@@ -19,11 +19,11 @@ import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import kotlin.reflect.KClass
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 
 class UDPMessengerImplTest {
 
@@ -164,7 +164,9 @@ class UDPMessengerImplTest {
             bufferSlot.captured.data = receivedString.toByteArray()
         }
 
-        every { objectParser.parseJson<TestJsonClass>(any<String>()) } returns Either.right(receivedObj)
+        every { objectParser.parseJson<TestJsonClass>(any<String>()) } returns Either.right(
+            receivedObj
+        )
 
         runBlocking {
 
@@ -361,7 +363,11 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.shouldBeLeft(error)
+            result.shouldBeLeft {
+                (it is NetworkError) shouldBe true
+                it.message shouldBe error.message
+                it.e?.message shouldBe error.e?.message
+            }
         }
     }
 
