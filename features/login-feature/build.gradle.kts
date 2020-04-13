@@ -1,4 +1,5 @@
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.featureBaseDependencies
 
 plugins {
@@ -8,12 +9,11 @@ plugins {
     id(GradlePlugins.kotlinKapt)
 }
 
-android {
-    applyDefault()
-}
+applyAndroidDefault()
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    commonBaseDependencies()
+
     featureBaseDependencies()
 
     //    Test

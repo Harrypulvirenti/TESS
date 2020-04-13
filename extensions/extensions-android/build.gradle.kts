@@ -1,4 +1,5 @@
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.coroutines
 
 plugins {
@@ -7,13 +8,10 @@ plugins {
     id(GradlePlugins.kotlinAndroidExtensions)
 }
 
-android {
-    applyDefault()
-}
+applyAndroidDefault()
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdlib)
+    commonBaseDependencies()
 
     // Android
     implementation(Libraries.appCompat)

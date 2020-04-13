@@ -1,7 +1,8 @@
 import Modules.architectureSDK
 import Modules.core
 import Modules.mobileFeatures
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.implementationProject
 
 plugins {
@@ -11,12 +12,10 @@ plugins {
     id(GradlePlugins.fabric)
 }
 
-android {
-    applyDefault(ApplicationId.mobile)
-}
+applyAndroidDefault(ApplicationId.mobile)
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    commonBaseDependencies()
 
     implementationProject(mobileFeatures + core + architectureSDK)
 

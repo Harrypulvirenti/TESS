@@ -1,5 +1,6 @@
 import Modules.loginFeature
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.featureBaseDependencies
 import extensions.implementationProject
 
@@ -10,12 +11,11 @@ plugins {
     id(GradlePlugins.kotlinKapt)
 }
 
-android {
-    applyDefault()
-}
+applyAndroidDefault()
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    commonBaseDependencies()
+
     featureBaseDependencies()
 
     implementationProject(loginFeature)

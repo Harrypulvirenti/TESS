@@ -1,4 +1,5 @@
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.featureBaseDependencies
 import extensions.jackson
 
@@ -9,17 +10,14 @@ plugins {
     id(GradlePlugins.kotlinKapt)
 }
 
-
-android {
-    applyDefault()
-}
+applyAndroidDefault()
 
 repositories {
     maven(url = "https://kotlin.bintray.com/kotlinx")
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    commonBaseDependencies()
 
     featureBaseDependencies()
 

@@ -21,7 +21,7 @@ fun DependencyHandler.apiProject(modules: Iterable<String>) {
     }
 }
 
-internal fun DependencyHandler.implementation(dependency: String) {
+internal fun DependencyHandler.implementation(dependency: Any) {
     add("implementation", dependency)
 }
 

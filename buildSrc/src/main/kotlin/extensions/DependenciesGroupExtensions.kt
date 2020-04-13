@@ -3,7 +3,16 @@ package extensions
 import Libraries
 import Modules
 import TestLibraries
+import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
+
+fun Project.commonBaseDependencies() {
+    dependencies {
+        implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+        implementation(Libraries.kotlinStdlib)
+    }
+}
 
 fun DependencyHandlerScope.androidSupport() {
     implementation(Libraries.appCompat)
@@ -60,7 +69,6 @@ fun DependencyHandlerScope.testingCommon() {
 }
 
 fun DependencyHandlerScope.featureBaseDependencies() {
-    implementation(Libraries.kotlinStdlib)
 
     implementationProject(
         Modules.sharedInterfaces,

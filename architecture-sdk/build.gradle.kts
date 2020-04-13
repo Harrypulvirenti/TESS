@@ -1,5 +1,6 @@
 import Modules.sharedInterfaces
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.firebaseCommon
 import extensions.implementationProject
 
@@ -9,13 +10,10 @@ plugins {
     id(GradlePlugins.kotlinAndroidExtensions)
 }
 
-android {
-    applyDefault()
-}
+applyAndroidDefault()
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdlib)
+    commonBaseDependencies()
 
     implementationProject(sharedInterfaces)
 

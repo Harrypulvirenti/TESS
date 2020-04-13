@@ -1,10 +1,9 @@
 package extensions
 
 import AndroidSdk
-import com.android.build.gradle.TestedExtension
-import java.io.File
+import org.gradle.api.Project
 
-fun TestedExtension.applyDefault(appId: String? = null) {
+fun Project.applyAndroidDefault(appId: String? = null) {
 
     applyBuildDefaultConfig(appId)
     applyBuildTypes()
@@ -12,49 +11,57 @@ fun TestedExtension.applyDefault(appId: String? = null) {
     applyTestOptions()
 }
 
-fun TestedExtension.applyBuildDefaultConfig(appId: String? = null) {
+fun Project.applyBuildDefaultConfig(appId: String? = null) {
 
-    compileSdkVersion(AndroidSdk.compile)
+    android {
+        compileSdkVersion(AndroidSdk.compile)
 
-    defaultConfig {
+        defaultConfig {
 
-        appId?.let { applicationId = appId }
+            appId?.let { applicationId = appId }
 
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
-        versionCode = AndroidSdk.appVersionCode
-        versionName = AndroidSdk.appVersionName
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+            minSdkVersion(AndroidSdk.min)
+            targetSdkVersion(AndroidSdk.target)
+            versionCode = AndroidSdk.appVersionCode
+            versionName = AndroidSdk.appVersionName
+            testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
-    }
-}
-
-fun TestedExtension.applyBuildTypes() {
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
 }
 
-fun TestedExtension.applyLint() {
+fun Project.applyBuildTypes() {
 
-    lintOptions {
-        disable("InvalidPackage")
-        baseline(File("lint-errors.xml"))
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
-        isAbortOnError = true
+    android {
+        buildTypes {
+            release {
+                isMinifyEnabled = false
+                proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            }
+        }
     }
 }
 
-fun TestedExtension.applyTestOptions() {
+fun Project.applyLint() {
 
-    testOptions {
-        unitTests.all {
-            useJUnit()
+    android {
+        lintOptions {
+            disable("InvalidPackage")
+            baseline(file("lint-errors.xml"))
+            isCheckAllWarnings = true
+            isWarningsAsErrors = true
+            isAbortOnError = true
+        }
+    }
+}
+
+fun Project.applyTestOptions() {
+
+    android {
+        testOptions {
+            unitTests.all {
+                useJUnit()
+            }
         }
     }
 }

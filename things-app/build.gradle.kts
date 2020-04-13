@@ -1,5 +1,6 @@
 import Modules.core
-import extensions.applyDefault
+import extensions.applyAndroidDefault
+import extensions.commonBaseDependencies
 import extensions.featureBaseDependencies
 import extensions.implementationProject
 import extensions.room
@@ -12,12 +13,10 @@ plugins {
     id(GradlePlugins.fabric)
 }
 
-android {
-    applyDefault(ApplicationId.things)
-}
+applyAndroidDefault(ApplicationId.things)
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    commonBaseDependencies()
 
     featureBaseDependencies()
 
