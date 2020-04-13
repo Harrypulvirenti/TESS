@@ -1,3 +1,3 @@
-Extensions Modules
+Splash Feature
 ===========================
 ### TODO

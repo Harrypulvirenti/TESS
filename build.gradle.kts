@@ -1,4 +1,4 @@
-apply(plugin = "com.github.ben-manes.versions")
+apply(plugin = GradlePlugins.versions)
 
 buildscript {
 
@@ -27,13 +27,13 @@ allprojects {
     }
 }
 subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint-idea")
+    apply(plugin = GradlePlugins.ktlint)
+    apply(plugin = GradlePlugins.ktlintIdea)
 }
 
 tasks.register("clean", Delete::class) {
     delete(buildDir)
 }
 
-apply(plugin = "org.jlleitschuh.gradle.ktlint")
-apply(plugin = "org.jlleitschuh.gradle.ktlint-idea")
+apply(plugin = GradlePlugins.ktlint)
+apply(plugin = GradlePlugins.ktlintIdea)

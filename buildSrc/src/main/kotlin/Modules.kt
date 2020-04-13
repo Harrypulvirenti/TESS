@@ -25,10 +25,10 @@ object Modules {
     const val sharedInterfaces = ":shared-interfaces"
     const val architectureSDK = ":architecture-sdk"
     const val core = ":core"
-    const val extensionsAndroid = ":extensions:extensions-android"
-    const val extensionsKotlin = ":extensions:extensions-kotlin"
+    const val extensionsAndroid = ":extensions-android"
+    const val extensionsKotlin = ":extensions-kotlin"
 
     // Features
-    const val splashFeature = ":features:splash-feature"
-    const val loginFeature = ":features:login-feature"
+    const val splashFeature = ":splash-feature"
+    const val loginFeature = ":login-feature"
 }
