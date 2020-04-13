@@ -20,3 +20,19 @@ fun DependencyHandler.apiProject(modules: Iterable<String>) {
         add("api", project(it))
     }
 }
+
+internal fun DependencyHandler.implementation(dependency: String) {
+    add("implementation", dependency)
+}
+
+internal fun DependencyHandler.testImplementation(dependency: String) {
+    add("testImplementation", dependency)
+}
+
+internal fun DependencyHandler.api(dependency: String) {
+    add("api", dependency)
+}
+
+internal fun DependencyHandler.kapt(dependency: String) {
+    add("kapt", dependency)
+}

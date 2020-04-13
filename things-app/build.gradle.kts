@@ -1,6 +1,8 @@
 import Modules.core
 import extensions.applyDefault
+import extensions.featureBaseDependencies
 import extensions.implementationProject
+import extensions.room
 
 plugins {
     id(GradlePlugins.androidApplication)
@@ -16,28 +18,23 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdlib)
+
+    featureBaseDependencies()
 
     implementationProject(core)
 
-//    Test
-    testImplementation(TestLibraries.junit)
-    androidTestImplementation(TestLibraries.espresso)
-    androidTestImplementation(TestLibraries.runner)
-    testImplementation(TestLibraries.mockk)
-    testImplementation(TestLibraries.kotlinTestArrow)
-    testImplementation(TestLibraries.kotlinTestRunner)
-    testImplementation(TestLibraries.coroutinesTest)
-
-//    Things
+    // Things
     compileOnly(Libraries.things)
 
-//    Room
-    implementation(Libraries.room)
-    kapt(Libraries.roomCompiler)
-    implementation(Libraries.roomKTX)
+    // Room
+    room()
 
-//    Jackson
+    // Jackson
     implementation(Libraries.jacksonAnnotation)
+
+    // Test
+    androidTestImplementation(TestLibraries.espresso)
+    androidTestImplementation(TestLibraries.runner)
+    testImplementation(TestLibraries.coroutinesTest)
 }
 apply(plugin = GradlePlugins.googleServices)

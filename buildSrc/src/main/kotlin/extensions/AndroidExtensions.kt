@@ -2,10 +2,6 @@ package extensions
 
 import AndroidSdk
 import com.android.build.gradle.TestedExtension
-import com.android.build.gradle.internal.dsl.TestOptions
-import org.gradle.api.tasks.testing.Test
-import org.gradle.kotlin.dsl.KotlinClosure1
-import org.gradle.kotlin.dsl.delegateClosureOf
 import java.io.File
 
 fun TestedExtension.applyDefault(appId: String? = null) {
@@ -57,12 +53,8 @@ fun TestedExtension.applyLint() {
 fun TestedExtension.applyTestOptions() {
 
     testOptions {
-        unitTests(delegateClosureOf<TestOptions.UnitTestOptions> {
-            all(
-                KotlinClosure1<Any, Test>({
-                    (this as Test).apply { useJUnit() }
-                }, this)
-            )
-        })
+        unitTests.all {
+            useJUnit()
+        }
     }
 }

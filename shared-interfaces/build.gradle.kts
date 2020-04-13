@@ -1,4 +1,5 @@
 import extensions.applyDefault
+import extensions.coroutines
 
 plugins {
     id(GradlePlugins.androidLibrary)
@@ -14,7 +15,5 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(Libraries.kotlinStdlib)
 
-//    Coroutine
-    implementation(Libraries.coroutinesCore)
-    implementation(Libraries.coroutinesAndroid)
+    coroutines()
 }

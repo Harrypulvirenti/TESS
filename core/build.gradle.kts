@@ -1,6 +1,6 @@
-import Modules.architectureSDK
-import extensions.apiProject
 import extensions.applyDefault
+import extensions.featureBaseDependencies
+import extensions.jackson
 
 plugins {
     id(GradlePlugins.androidLibrary)
@@ -19,23 +19,15 @@ repositories {
 }
 
 dependencies {
-
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdlib)
 
-    apiProject(architectureSDK)
+    featureBaseDependencies()
 
-//    Test
-    testImplementation(TestLibraries.junit)
-    testImplementation(TestLibraries.mockk)
-    testImplementation(TestLibraries.kotlinTestArrow)
-    testImplementation(TestLibraries.kotlinTestRunner)
-
+    // Firebase
     implementation(Libraries.firebaseFirestone)
 
-//    Jackson
-    implementation(Libraries.jackson)
-    implementation(Libraries.jacksonAnnotation)
+    // Jackson
+    jackson()
 
 }
 repositories {

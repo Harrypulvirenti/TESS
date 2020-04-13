@@ -1,3 +1,4 @@
+import Modules.architectureSDK
 import Modules.core
 import Modules.mobileFeatures
 import extensions.applyDefault
@@ -16,20 +17,11 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdlib)
 
-    implementationProject(core)
-    implementationProject(mobileFeatures)
+    implementationProject(mobileFeatures + core + architectureSDK)
 
-//    Test
-    testImplementation(TestLibraries.junit)
-    androidTestImplementation(TestLibraries.espresso)
-    androidTestImplementation(TestLibraries.runner)
-
-//    Support
-    implementation(Libraries.appCompat)
-    implementation(Libraries.constraintLayout)
-
+    // Koin
+    implementation(Libraries.koinAndroid)
 }
 
 apply(plugin = GradlePlugins.googleServices)
