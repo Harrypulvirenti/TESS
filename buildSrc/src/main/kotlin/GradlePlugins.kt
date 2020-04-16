@@ -9,4 +9,7 @@ object GradlePlugins {
     const val fabric = "io.fabric"
     const val kotlinKapt = "kotlin-kapt"
     const val googleServices = "com.google.gms.google-services"
+    const val versions = "com.github.ben-manes.versions"
+    const val ktlint = "org.jlleitschuh.gradle.ktlint"
+    const val ktlintIdea = "org.jlleitschuh.gradle.ktlint-idea"
 }

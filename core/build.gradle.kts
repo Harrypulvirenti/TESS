@@ -26,7 +26,6 @@ dependencies {
 
     // Jackson
     jackson()
-
 }
 repositories {
     mavenCentral()

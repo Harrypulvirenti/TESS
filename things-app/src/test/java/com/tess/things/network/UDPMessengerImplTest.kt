@@ -19,11 +19,11 @@ import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import kotlin.reflect.KClass
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 
 class UDPMessengerImplTest {
 
