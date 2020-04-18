@@ -64,8 +64,10 @@ fun DependencyHandlerScope.room() {
 fun DependencyHandlerScope.testingCommon() {
     testImplementation(TestLibraries.junit)
     testImplementation(TestLibraries.mockk)
-    testImplementation(TestLibraries.kotlinTestArrow)
-    testImplementation(TestLibraries.kotlinTestRunner)
+    testImplementation(TestLibraries.koTestRunner)
+    testImplementation(TestLibraries.koTestAssertionsCore)
+    testImplementation(TestLibraries.koTestProperty)
+    testImplementation(TestLibraries.koTestArrow)
 }
 
 fun DependencyHandlerScope.featureBaseDependencies() {

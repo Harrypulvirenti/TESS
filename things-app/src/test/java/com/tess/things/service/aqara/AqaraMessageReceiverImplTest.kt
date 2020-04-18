@@ -10,7 +10,7 @@ import com.tess.things.models.aqara.AqaraMessageData
 import com.tess.things.models.aqara.AqaraNetMessage
 import com.tess.things.network.MulticastReceiver
 import com.tess.things.service.AqaraMessageReceiverImpl
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject

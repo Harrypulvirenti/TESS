@@ -4,6 +4,7 @@ import extensions.commonBaseDependencies
 import extensions.featureBaseDependencies
 import extensions.implementationProject
 import extensions.room
+import org.gradle.api.JavaVersion.VERSION_1_8
 
 plugins {
     id(GradlePlugins.androidApplication)
@@ -13,7 +14,13 @@ plugins {
     id(GradlePlugins.fabric)
 }
 
-applyAndroidDefault(ApplicationId.things)
+android {
+    applyAndroidDefault(ApplicationId.things)
+
+    kotlinOptions {
+        jvmTarget = VERSION_1_8.toString()
+    }
+}
 
 dependencies {
     commonBaseDependencies()
