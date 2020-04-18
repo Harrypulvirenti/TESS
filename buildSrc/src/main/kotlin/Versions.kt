@@ -1,7 +1,7 @@
 internal object Versions {
 
     // BuildPlugins
-    const val kotlin = "1.3.71"
+    const val kotlin = "1.3.72"
     const val androidBuildTools = "4.0.0-beta04"
     const val googleServices = "4.3.3"
     const val fabric = "1.31.2"
