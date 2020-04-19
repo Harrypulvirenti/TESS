@@ -32,7 +32,7 @@ Some examples:
 *  [Room](https://developer.android.com/topic/libraries/architecture/room) (Database)
 *  [Firebase Firestone](https://firebase.google.com/products/firestore/) (Remote Database)
 *  [Mockk](https://mockk.io/) (Mocking Library)
-*  [KotlinTest](https://github.com/kotlintest/kotlintest) (Test Framework)
+*  [KoTest](https://github.com/kotest/kotest) (Test Framework)
 
 Project Status Backlog
 ----------------------

@@ -4,7 +4,6 @@ import Modules.mobileFeatures
 import extensions.applyAndroidDefault
 import extensions.commonBaseDependencies
 import extensions.implementationProject
-import org.gradle.api.JavaVersion.VERSION_1_8
 
 plugins {
     id(GradlePlugins.androidApplication)
@@ -13,13 +12,7 @@ plugins {
     id(GradlePlugins.fabric)
 }
 
-android {
-    applyAndroidDefault(ApplicationId.mobile)
-
-    kotlinOptions {
-        jvmTarget = VERSION_1_8.toString()
-    }
-}
+applyAndroidDefault(ApplicationId.mobile)
 
 dependencies {
     commonBaseDependencies()

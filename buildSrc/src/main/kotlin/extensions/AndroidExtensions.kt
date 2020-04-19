@@ -2,7 +2,6 @@ package extensions
 
 import AndroidSdk
 import com.android.build.gradle.BaseExtension
-import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Project
 
 fun Project.applyAndroidDefault(appId: String? = null) {
@@ -12,7 +11,6 @@ fun Project.applyAndroidDefault(appId: String? = null) {
         applyBuildTypes()
         applyLint(this@applyAndroidDefault)
         applyTestOptions()
-        applyCompileOptions()
     }
 }
 
@@ -56,12 +54,5 @@ private fun BaseExtension.applyTestOptions() {
         unitTests.all {
             useJUnit()
         }
-    }
-}
-
-private fun BaseExtension.applyCompileOptions() {
-    compileOptions {
-        sourceCompatibility = VERSION_1_8
-        targetCompatibility = VERSION_1_8
     }
 }
