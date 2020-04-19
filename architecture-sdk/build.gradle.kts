@@ -17,11 +17,15 @@ dependencies {
 
     implementationProject(sharedInterfaces)
 
+    // Support
+    implementation(Libraries.appCompat)
+
     // Logger
     implementation(Libraries.logger)
 
     // Koin
     implementation(Libraries.koinAndroid)
+    implementation(Libraries.koinFragment)
 
     // Firebase
     firebaseCommon()
