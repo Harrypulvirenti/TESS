@@ -8,6 +8,7 @@ import com.tess.shared.interfaces.ApplicationStarter
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
@@ -15,6 +16,7 @@ import org.koin.core.module.Module
 fun Application.initKoin(isDebug: Boolean = false, vararg modules: Module) {
 
     startKoin {
+        fragmentFactory()
         if (isDebug) {
             androidLogger(Level.DEBUG)
         }
