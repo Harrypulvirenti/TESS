@@ -63,8 +63,12 @@ object TestLibraries {
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val runner = "androidx.test:runner:${Versions.runner}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
-    const val kotlinTestRunner = "io.kotlintest:kotlintest-runner-junit5:${Versions.kotlinTest}"
-    const val kotlinTestArrow = "io.kotlintest:kotlintest-assertions-arrow:${Versions.kotlinTest}"
+    const val koTestRunner = "io.kotest:kotest-runner-junit5-jvm:${Versions.koTest}"
+    const val koTestAssertionsCore = "io.kotest:kotest-assertions-core-jvm:${Versions.koTest}"
+    const val koTestProperty = "io.kotest:kotest-property-jvm:${Versions.koTest}"
+    const val koTestArrow = "io.kotest:kotest-assertions-arrow-jvm:${Versions.koTest}"
+    const val koTestKoin = "io.kotest:kotest-extensions-koin-jvm:${Versions.koTest}"
+    const val koTestAndroid = "io.kotest:kotest-assertions-android:${Versions.koTest}"
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
 
     const val coroutinesTest =

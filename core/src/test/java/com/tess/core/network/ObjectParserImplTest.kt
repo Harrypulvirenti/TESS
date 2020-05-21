@@ -4,11 +4,11 @@ import arrow.core.orNull
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.kotlintest.assertions.arrow.either.shouldBeLeft
-import io.kotlintest.assertions.arrow.either.shouldBeRight
-import io.kotlintest.shouldBe
-import java.util.Arrays
+import io.kotest.assertions.arrow.either.shouldBeLeft
+import io.kotest.assertions.arrow.either.shouldBeRight
+import io.kotest.matchers.shouldBe
 import org.junit.Test
+import java.util.Arrays
 
 class ObjectParserImplTest {
 
@@ -22,7 +22,7 @@ class ObjectParserImplTest {
 
         val expected = TestJsonClass("string", 1, true, 3, null)
 
-        actual.shouldBeRight(expected)
+        actual shouldBeRight expected
     }
 
     @Test
@@ -40,7 +40,7 @@ class ObjectParserImplTest {
             )
         )
 
-        actual.shouldBeRight(expected)
+        actual shouldBeRight expected
     }
 
     @Test
@@ -63,7 +63,7 @@ class ObjectParserImplTest {
 
         val expected = TestJsonClass("string", 1, true, 3, null)
 
-        actual.shouldBeRight(expected)
+        actual shouldBeRight expected
     }
 
     @Test
@@ -89,7 +89,7 @@ class ObjectParserImplTest {
             )
         )
 
-        actual.shouldBeRight(expected)
+        actual shouldBeRight expected
     }
 
     @Test
@@ -107,7 +107,7 @@ class ObjectParserImplTest {
 
         val expected = "{\"string\":\"string\",\"int\":1,\"boolean\":true,\"long\":3}"
 
-        actual.shouldBeRight(expected)
+        actual shouldBeRight expected
     }
 
     @Test

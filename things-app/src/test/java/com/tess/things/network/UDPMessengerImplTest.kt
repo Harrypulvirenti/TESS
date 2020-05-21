@@ -11,19 +11,19 @@ import com.tess.core.network.parseJson
 import com.tess.things.models.MalformedIPError
 import com.tess.things.models.TimeoutError
 import com.tess.things.models.asIP
-import io.kotlintest.assertions.arrow.either.shouldBeLeft
-import io.kotlintest.assertions.arrow.either.shouldBeLeftOfType
-import io.kotlintest.assertions.arrow.either.shouldBeRight
-import io.kotlintest.shouldBe
+import io.kotest.assertions.arrow.either.shouldBeLeft
+import io.kotest.assertions.arrow.either.shouldBeLeftOfType
+import io.kotest.assertions.arrow.either.shouldBeRight
+import io.kotest.matchers.shouldBe
 import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import kotlin.reflect.KClass
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 
 class UDPMessengerImplTest {
 
@@ -103,7 +103,7 @@ class UDPMessengerImplTest {
 
             verify(exactly = 0) { socket.send(any()) }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 
@@ -141,7 +141,7 @@ class UDPMessengerImplTest {
                 })
             }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 
@@ -188,7 +188,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(receivedString, TestJsonClass::class)
             }
 
-            result.shouldBeRight(receivedObj)
+            result shouldBeRight receivedObj
         }
     }
 
@@ -236,7 +236,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 
@@ -279,7 +279,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 
@@ -320,7 +320,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(any<String>(), any<KClass<Any>>())
             }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 
@@ -412,7 +412,7 @@ class UDPMessengerImplTest {
                 objectParser.parseJson(receivedString, TestJsonClass::class)
             }
 
-            result.shouldBeLeft(error)
+            result shouldBeLeft error
         }
     }
 }
